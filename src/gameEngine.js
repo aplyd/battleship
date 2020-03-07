@@ -1,19 +1,18 @@
 export function gameEngine() {
-    const state = {
-        userShipPlacement: [24, 16, 54, 2, 76],
-        compShipPlacement: null
-    };
-    
+
     
 }
 
-export function generateCompShipPlacement() {
-    let x = 0;
+//create non-duplicating 20 length array of numbers 0-99
+export function selectRandomPositions() {
+    const arrayOfUniqeNums = [];
+    const generateNum = () => Math.floor(Math.random() * 100);
 
-    for (let i = 0; i < 10; i++) {
-        x++
+    while (arrayOfUniqeNums.length < 20) {
+        let num = generateNum();
+        if (!arrayOfUniqeNums.includes(num)) {
+            arrayOfUniqeNums.push(num);
+        }
     }
-
-    console.log(x)
-    return x;
+    return arrayOfUniqeNums;
 }

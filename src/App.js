@@ -4,9 +4,6 @@ import './App.css'
 import Gameboard from './components/Gameboard'
 import StartGameModal from './components/StartGameModal';
 
-export function works (message) {
-  return message;
-}
 
 export class App extends Component {
   constructor() {
@@ -26,6 +23,8 @@ export class App extends Component {
   toggleStartGameModal = () => {
     this.setState({ isModalOpen: !this.state.isModalOpen})
   }
+
+  
 
   render() {
     return (

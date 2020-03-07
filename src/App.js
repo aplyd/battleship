@@ -13,7 +13,8 @@ export class App extends Component {
     super();
     this.state = {
       isModalOpen: true,
-      username: ''
+      username: '',
+      placeShips: true,
     }
   }
 

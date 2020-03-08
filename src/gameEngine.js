@@ -1,10 +1,19 @@
 export function gameEngine() {
-
-    
 }
 
-//create non-duplicating 20 length array of numbers 0-99
-export function selectRandomPositions() {
+export function generateBoard() {
+    let arr = []
+    for (let i = 0; i < 100; i++) {
+        arr.push({ship: false, damage: false})
+    }
+    
+    return arr
+}
+
+//create non-duplicating 20 length array of numbers 0-99 INCOMPLETE
+export function generateComputer() {
+    let board = generateBoard();
+
     const arrayOfUniqeNums = [];
     const generateNum = () => Math.floor(Math.random() * 100);
 
@@ -14,5 +23,11 @@ export function selectRandomPositions() {
             arrayOfUniqeNums.push(num);
         }
     }
-    return arrayOfUniqeNums;
+
+    return board;
+}
+
+
+export function generateUser() {
+    
 }

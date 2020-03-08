@@ -1,14 +1,17 @@
-import { generateRandomSelection } from './gameEngine'
+import { generateRandomSelection, generateBoard } from './gameEngine'
 
-test('numbers are from 0-99', () => {
-    let arr = generateRandomSelection();
+let arr = generateBoard();
+let obj = {ship: false, damage: false}
 
-    arr.forEach(number => {
-        expect(number).toBeGreaterThanOrEqual(0);
-        expect(number).toBeLessThan(100);
-    })
+test('test', () => {
+    expect(true).toBe(true)
 })
 
-test.only(' ')
+test('arr should contain correct object', () => {
+    expect(arr[0]).toMatchObject(obj)
+    expect(arr[9]).toMatchObject(obj)
+})
 
-//need to test to make sure that there are never duplicates in array
+test('should be unique objects', () => {
+    expect(arr[0]).toEqual(arr[1])
+})

@@ -4,20 +4,22 @@ export class Space extends Component {
     constructor() {
         super();
         this.state = {
-            hit: false,
+            ship: false,
             occupied: true
         }
     }
 
-    handleClick = () => {
-        this.setState({
-            hit: !this.state.hit
-        })
-    }
+    // handleClick = () => {
+    //     this.setState({
+    //         hit: !this.state.hit
+    //     })
+
+    //     this.props.handleSpaceClick(this.props.index);
+    // }
 
     render() {
         return (
-            <div onClick={this.handleClick} style={{backgroundColor: this.state.hit ? 'red' : 'grey'}}>
+            <div onClick={(e) => this.props.handleSpaceClick(e, this.props.index)} style={{backgroundColor: this.state.ship ? 'black' : 'grey'}}>
                 <p>{this.props.index}</p>
             </div>
         )

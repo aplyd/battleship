@@ -1,25 +1,33 @@
 import React, { Component } from 'react'
 
 export class Space extends Component {
-    constructor() {
-        super();
-        this.state = {
-            ship: false,
-            occupied: true
+
+    setStyle = () => {
+        let styles = {};
+
+        if (this.props.damage) {
+            const damage = {
+                backgroundColor: 'red'
+            }
+            styles = Object.assign(styles, damage)
         }
+        if (this.props.ship) {
+            const ship = {
+                backgroundColor: 'black'
+            }
+            styles = Object.assign(styles, ship)
+        }
+
+        return styles;
     }
-
-    // handleClick = () => {
-    //     this.setState({
-    //         hit: !this.state.hit
-    //     })
-
-    //     this.props.handleSpaceClick(this.props.index);
-    // }
 
     render() {
         return (
-            <div onClick={(e) => this.props.handleSpaceClick(e, this.props.index)} style={{backgroundColor: this.state.ship ? 'black' : 'grey'}}>
+            <div onClick={(e) => this.props.handleSpaceClick(e, this.props.index)} 
+            className="space"
+            style={this.setStyle()}
+            // style={ this.props.ship ? {backgroundColor: 'black'} : {backgroundColor: 'grey'} }
+            >
                 <p>{this.props.index}</p>
             </div>
         )

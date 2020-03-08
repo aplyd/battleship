@@ -69,6 +69,9 @@ button {
     border: 1px dotted black;
 }
 
+.space {
+    background-color: lightgray;
+}
 
 
 /* START GAME MODAL */

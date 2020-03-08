@@ -42,21 +42,14 @@ export class App extends Component {
   }
 
   handleSpaceClick = (e, index) => {
-
-    //need to deep copy with JSON stringify so it doesn't update state directly
-    //im an idiot and like using objects in arrays in state
-    const tempState = JSON.stringify(this.state.user)
-    const newState = JSON.parse(tempState)
+    const user = [...this.state.user]
 
     //here we handle placing the ships until all 20 are placed
-    if (!this.state.allShipsPlaced) {
-      newState[index].ship = true;
-      newState.placedShipCounter++;
+    if (this.state.placedShipCounter < 20) {
+      user[index][0] = true;
+      this.state.placedShipCounter++;
+      this.setState({user})
     }
-
-    this.setState({ user: newState })
-    console.log(newState[0].ship)
-    console.log(this.state.user[0].ship)
 }
   
 

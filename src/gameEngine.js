@@ -1,10 +1,8 @@
-export function gameEngine() {
-}
 
 export function generateBoard() {
     let arr = []
     for (let i = 0; i < 100; i++) {
-        arr.push({ship: false, damage: false})
+        arr.push([false, false])
     }
     
     return arr
@@ -25,9 +23,4 @@ export function generateComputer() {
     }
 
     return board;
-}
-
-
-export function generateUser() {
-    
 }

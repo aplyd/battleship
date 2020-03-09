@@ -8,7 +8,7 @@ export function generateBoard() {
     return arr
 }
 
-//create non-duplicating 20 length array of numbers 0-99 INCOMPLETE
+//create an array of random nums first to avoid duplicates, then place ships
 export function generateComputer() {
     let board = generateBoard();
 
@@ -19,6 +19,7 @@ export function generateComputer() {
         let num = generateNum();
         if (!arrayOfUniqeNums.includes(num)) {
             arrayOfUniqeNums.push(num);
+            board[num][0] = true;
         }
     }
 

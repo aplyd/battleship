@@ -17,6 +17,13 @@ export class App extends Component {
       computer: null,
       allShipsPlaced: false,
       placedShipCounter: 0,
+      usersTurn: true,
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.placedShipCounter >= 20) {
+      this.setState({ allShipsPlaced: true })
     }
   }
 

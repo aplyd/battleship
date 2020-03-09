@@ -1,17 +1,40 @@
-import { generateRandomSelection, generateBoard } from './gameEngine'
+import { generateComputer, generateBoard } from './gameEngine'
 
-let arr = generateBoard();
-let obj = {ship: false, damage: false}
 
 test('test', () => {
     expect(true).toBe(true)
 })
 
-test('arr should contain correct object', () => {
-    expect(arr[0]).toMatchObject(obj)
-    expect(arr[9]).toMatchObject(obj)
+//array returned from generateBoard changed, returns array instead of inner object
+// test('arr should contain correct object', () => {
+//     expect(arr[0]).toMatchObject(obj)
+//     expect(arr[9]).toMatchObject(obj)
+// })
+
+test('should have 20 random selections and board size of 100', () => {
+    const board = generateComputer()
+
+    const randomNumArr = board.filter((num) => {
+        if (num[0] == true) {
+            return num;
+        }
+    })
+
+    expect(randomNumArr.length).toBe(20);
+    expect(board.length).toBe(100);
 })
 
-test('should be unique objects', () => {
-    expect(arr[0]).toEqual(arr[1])
+
+test('items in array should be unique', () => {
+    const board = generateComputer()
+
+    const randomNumArr = board.filter((num) => {
+        if (num[0] == true) {
+            return num;
+        }
+    })
+
+    const isArrayUnique = arr => new Set(arr).size === arr.length;
+
+    expect(isArrayUnique(randomNumArr)).toBeTruthy();
 })

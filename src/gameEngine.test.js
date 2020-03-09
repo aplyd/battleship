@@ -5,7 +5,7 @@ test('test', () => {
     expect(true).toBe(true)
 })
 
-//array returned from generateBoard changed, returns array instead of inner object
+//array returned from generateBoard changed, returns nested array instead of inner object
 // test('arr should contain correct object', () => {
 //     expect(arr[0]).toMatchObject(obj)
 //     expect(arr[9]).toMatchObject(obj)

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+
 import './App.css'
 
 import Gameboard from './components/Gameboard'
@@ -6,12 +7,11 @@ import StartGameModal from './components/StartGameModal';
 
 import { generateComputer, generateBoard } from './gameEngine';
 
-
 export class App extends Component {
   constructor() {
     super();
     this.state = {
-      isModalOpen: false,
+      isModalOpen: true,
       username: '',
       user: null,
       computer: null,
@@ -22,14 +22,21 @@ export class App extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.placedShipCounter >= 20) {
-      this.setState({ allShipsPlaced: true })
+    if (prevState.placedShipCounter === 19) {
+      this.setState({ 
+        allShipsPlaced: true, 
+        usersTurn: false 
+      })
+      console.log('works')
     }
+
+    console.log(prevState.placedShipCounter)
   }
 
   UNSAFE_componentWillMount = () => {
     this.getInitialState();
   }
+
 
   getInitialState = () => {
     const user = generateBoard();
@@ -51,25 +58,28 @@ export class App extends Component {
   handleSpaceClick = (e, index) => {
     const user = [...this.state.user]
 
-    //here we handle placing the ships until all 20 are placed
-    if (this.state.placedShipCounter < 20) {
+    //placing the ships until all 20 are placed
+    if (this.state.placedShipCounter <= 19) {
       user[index][0] = true;
-      this.state.placedShipCounter++;
-      this.setState({user})
+      this.setState({
+        user,
+        placedShipCounter: this.state.placedShipCounter + 1,
+      })
     }
-}
-  
+  }
 
   render() {
     return (
       <React.Fragment>
-
         {this.state.isModalOpen 
         ? <StartGameModal getUserName={this.getUserName} /> 
         : null}
 
         <div id="gameboard-container">
-          <Gameboard user={this.state.user} handleSpaceClick={this.handleSpaceClick}/>
+          <Gameboard user={this.state.user} 
+                    handleSpaceClick={this.handleSpaceClick} 
+                    computer={this.state.computer} 
+                    usersTurn={this.state.usersTurn}/>
         </div>
         
 

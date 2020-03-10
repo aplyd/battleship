@@ -16,8 +16,8 @@ export class App extends Component {
       user: null,
       computer: null,
       allShipsPlaced: false,
-      placedShipCounter: 0,
-      usersTurn: true,
+      placedShipCounter: 16,
+      usersTurn: false,
     }
   }
 
@@ -25,12 +25,9 @@ export class App extends Component {
     if (prevState.placedShipCounter === 19) {
       this.setState({ 
         allShipsPlaced: true, 
-        usersTurn: false 
+        usersTurn: true
       })
-      console.log('works')
     }
-
-    console.log(prevState.placedShipCounter)
   }
 
   UNSAFE_componentWillMount = () => {
@@ -67,6 +64,20 @@ export class App extends Component {
       })
     }
   }
+  
+  handleAttack = (e, index) => {
+    const computer = [...this.state.computer]
+    console.log('hanlde attack')
+
+    computer[index][1] = true;
+    this.setState({
+      computer
+    })
+
+    setTimeout(() => {
+      // this.setState({ usersTurn: true })
+    }, 3000)
+  }
 
   render() {
     return (
@@ -79,7 +90,9 @@ export class App extends Component {
           <Gameboard user={this.state.user} 
                     handleSpaceClick={this.handleSpaceClick} 
                     computer={this.state.computer} 
-                    usersTurn={this.state.usersTurn}/>
+                    usersTurn={this.state.usersTurn}
+                    handleAttack={this.handleAttack}
+                    />
         </div>
         
 

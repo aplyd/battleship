@@ -1,19 +1,22 @@
 import React, { Component } from 'react'
 
-export class Space extends Component {
+export class ComputerSpace extends Component {
+
+    //game begin: 
+    //black = missile
+    //red = damage
 
     setStyle = () => {
         let styles = {};
 
-        if (this.props.damage) {
+        if (this.props.damage && this.props.ship) {
             const damage = {
-                backgroundColor: 'red'
+                backgroundColor: '#a35252'
             }
             styles = Object.assign(styles, damage)
-        }
-        if (this.props.ship) {
+        } else if (this.props.damage) {
             const ship = {
-                backgroundColor: 'black'
+                backgroundColor: '#4B6672'
             }
             styles = Object.assign(styles, ship)
         }
@@ -23,8 +26,7 @@ export class Space extends Component {
 
     render() {
         return (
-            <div onClick={(e) => this.props.handleSpaceClick(e, this.props.index)} 
-            className="space"
+            <div onClick={(e) => this.props.handleAttack(e, this.props.index)} 
             style={this.setStyle()}
             // style={ this.props.ship ? {backgroundColor: 'black'} : {backgroundColor: 'grey'} }
             >
@@ -34,4 +36,4 @@ export class Space extends Component {
     }
 }
 
-export default Space
+export default ComputerSpace

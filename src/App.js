@@ -18,6 +18,7 @@ export class App extends Component {
       allShipsPlaced: false,
       placedShipCounter: 16,
       usersTurn: false,
+      attackCounter: 0,
     }
   }
 
@@ -66,17 +67,20 @@ export class App extends Component {
   }
   
   handleAttack = (e, index) => {
-    const computer = [...this.state.computer]
-    console.log('hanlde attack')
+    //using attack counter to ensure only 1 attack per turn 
+    this.setState({ attackCounter:  this.state.attackCounter + 1})
+    if (this.state.attackCounter < 1) {
+      const computer = [...this.state.computer]
 
-    computer[index][1] = true;
-    this.setState({
-      computer
-    })
+      computer[index][1] = true;
+      this.setState({
+        computer
+      })
 
-    setTimeout(() => {
-      // this.setState({ usersTurn: true })
-    }, 3000)
+      setTimeout(() => {
+        this.setState({ usersTurn: false, attackCounter: 0 })
+      }, 3000)
+  }
   }
 
   render() {

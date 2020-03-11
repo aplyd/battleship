@@ -4,15 +4,22 @@ export class UserSpace extends Component {
 
     //place ships: click = gray
 
-    //game begin: click = black for attack
+    //game begin: click = dark blue for attack
     //if hit computer ship: red/damage
 
     setStyle = () => {
-        let styles = {};    
+        let styles = {};  
+        
+        if (this.props.damage && this.props.ship) {
+            const damage = {
+                backgroundColor: '#a35252'
+            }
+            styles = Object.assign(styles, damage)
+        }
 
         if (this.props.damage) {
             const damage = {
-                backgroundColor: 'red'
+                backgroundColor: '#4B6672'
             }
             styles = Object.assign(styles, damage)
         }

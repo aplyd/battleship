@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 export class ComputerSpace extends Component {
 
     //game begin: 
-    //black = missile
+    //dark blue = missile
     //red = damage
 
     setStyle = () => {

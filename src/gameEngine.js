@@ -8,7 +8,7 @@ export function generateBoard() {
     return arr
 }
 
-//create an array of random nums first to avoid duplicates, then place ships
+//create an array of random nums first to avoid duplicates
 export function generateComputer() {
     let board = generateBoard();
 
@@ -24,4 +24,18 @@ export function generateComputer() {
     }
 
     return board;
+}
+
+export function generateComputerAttackArr() {
+    const arrayOfUniqeNums = [];
+    const generateNum = () => Math.floor(Math.random() * 100);
+
+    while (arrayOfUniqeNums.length < 20) {
+        let num = generateNum();
+        if (!arrayOfUniqeNums.includes(num)) {
+            arrayOfUniqeNums.push(num);
+        }
+    }
+
+    return arrayOfUniqeNums;
 }

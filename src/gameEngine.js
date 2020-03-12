@@ -3,7 +3,6 @@
 //normal - computer selection is random, but when it hits a ship, it sinks the rest of the ship
 //hard - computer knows where your ships are, and hits every other time
 
-
 //TODO - function to translate 0-99 to a-j, 0-9 cordinates. then use that for ship placement.
 
 export function generateBoard() {
@@ -15,34 +14,38 @@ export function generateBoard() {
     return arr
 }
 
-//create an array of random nums first to avoid duplicates
-export function generateComputer() {
-    let board = generateBoard();
+const generateRandomNum = (n) => Math.floor(Math.random() * n)
 
-    const arrayOfUniqeNums = [];
-    const generateNum = () => Math.floor(Math.random() * 100);
+export const generate20UniqueNums = () => {
+    const arr = []
 
-    while (arrayOfUniqeNums.length < 20) {
-        let num = generateNum();
-        if (!arrayOfUniqeNums.includes(num)) {
-            arrayOfUniqeNums.push(num);
-            board[num][0] = true;
+    while (arr.length < 20) {
+        let num = generateRandomNum(100)
+        if (!arr.includes(num)) {
+            arr.push(num)
         }
     }
 
+    return arr
+}
+
+export function generateComputerBoard() {
+    let board = generateBoard();
+    let arr = generate20UniqueNums();
+
+    arr.forEach((num) => {
+        board[num][0] = true;
+    })
+    
     return board;
 }
 
-export function generateComputerAttackArr() {
-    const arrayOfUniqeNums = [];
-    const generateNum = () => Math.floor(Math.random() * 100);
+export function generateComputerAttacks(difficulty = 'easy') { 
+    let arr = [];
 
-    while (arrayOfUniqeNums.length < 20) {
-        let num = generateNum();
-        if (!arrayOfUniqeNums.includes(num)) {
-            arrayOfUniqeNums.push(num);
-        }
+    if (difficulty === 'easy') {
+        arr = generate20UniqueNums();
     }
 
-    return arrayOfUniqeNums;
+    return arr;
 }

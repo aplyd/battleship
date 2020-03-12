@@ -1,18 +1,13 @@
-import { generateComputer, generateBoard } from './gameEngine'
+import { generateComputerBoard, generate20UniqueNums, generateComputerAttacks } from './gameEngine'
 
 
-test('test', () => {
-    expect(true).toBe(true)
+test('length 20', () => {
+    const arr = generate20UniqueNums();
+    expect(arr.length).toBe(20);
 })
 
-//array returned from generateBoard changed, returns nested array instead of inner object
-// test('arr should contain correct object', () => {
-//     expect(arr[0]).toMatchObject(obj)
-//     expect(arr[9]).toMatchObject(obj)
-// })
-
-test('should have 20 random selections and board size of 100', () => {
-    const board = generateComputer()
+test('should have 20 selections and board size of 100', () => {
+    const board = generateComputerBoard()
 
     const randomNumArr = board.filter((num) => {
         if (num[0] == true) {
@@ -25,9 +20,8 @@ test('should have 20 random selections and board size of 100', () => {
 })
 
 
-test('items in array should be unique', () => {
-    const board = generateComputer()
-
+test('20 random selections should be unique', () => {
+    const board = generateComputerBoard()
     const randomNumArr = board.filter((num) => {
         if (num[0] == true) {
             return num;
@@ -37,4 +31,12 @@ test('items in array should be unique', () => {
     const isArrayUnique = arr => new Set(arr).size === arr.length;
 
     expect(isArrayUnique(randomNumArr)).toBeTruthy();
+})
+
+test('easy comp attack returns 20 unique nums', () => {
+    const arr = generateComputerAttacks();
+    const isArrayUnique = arr => new Set(arr).size === arr.length;
+
+    expect(isArrayUnique(arr)).toBeTruthy();
+    expect(arr.length).toBe(20);
 })

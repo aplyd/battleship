@@ -1,3 +1,10 @@
+//TODO - difficulties
+//easy - computer selection is random
+//normal - computer selection is random, but when it hits a ship, it sinks the rest of the ship
+//hard - computer knows where your ships are, and hits every other time
+
+
+//TODO - function to translate 0-99 to a-j, 0-9 cordinates. then use that for ship placement.
 
 export function generateBoard() {
     let arr = []

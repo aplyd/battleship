@@ -80,16 +80,28 @@ export class App extends Component {
       //copy computer board because thats what were attacking
       const computer = [...this.state.computer]
 
-      computer[index][1] = true;
-      this.setState({
-        computer
-      })
+      //computer[index][0] = occupied by ship, [1] = has been damaged
+      //if attack hits ship, allow for another turn
+      if (computer[index][0] === true) {
+        computer[index][1] = true;
+          this.setState({
+            computer
+          })
 
-      setTimeout(() => {
-        this.setState({ usersTurn: false, attackCounter: 0 })
-        this.computerAttack();
-      }, 3000)
+          this.setState({ attackCounter: 0 })
+      //if not, dont allow for another turn
+      } else {
+        computer[index][1] = true;
+          this.setState({
+            computer
+          })
 
+        setTimeout(() => {
+          this.setState({ usersTurn: false, attackCounter: 0 })
+          this.computerAttack();
+        }, 3000)
+      }
+      
     }
   }
 
@@ -107,7 +119,7 @@ export class App extends Component {
     
     setTimeout(() => {
         this.setState({ usersTurn: true })
-    }, 4500)
+    }, 3000)
     
   }
 

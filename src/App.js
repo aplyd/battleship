@@ -20,7 +20,7 @@ export class App extends Component {
       computerAttacks: [],
       computerAttackCounter: 0,
       allShipsPlaced: false,
-      placedShipCounter: 15,
+      placedShipCounter: 0,
       usersTurn: false,
       attackCounter: 0,
     }
@@ -108,18 +108,34 @@ export class App extends Component {
   computerAttack = () => {
     //copy user board because thats what computer is attacking
     const user = [...this.state.user];
+    const attackArr = this.state.computerAttacks;
+    const index = this.state.computerAttackCounter;
 
-    setTimeout(() => {
-      user[this.state.computerAttacks[this.state.computerAttackCounter]][1] = true;
-      this.setState({ 
-        user,
-        computerAttackCounter: this.state.computerAttackCounter + 1 
-      })
-    }, 1500)
-    
-    setTimeout(() => {
-        this.setState({ usersTurn: true })
-    }, 3000)
+    ////if attack hits ship, allow for another turn
+    if (user[attackArr[index]][0] === true) {
+      setTimeout(() => {
+        user[attackArr[index]][1] = true;
+          this.setState({ 
+            user,
+            computerAttackCounter: index + 1 
+          })
+          this.computerAttack();
+        }, 1500)
+
+        
+    } else {
+      setTimeout(() => {
+        user[attackArr[index]][1] = true;
+          this.setState({ 
+            user,
+            computerAttackCounter: index + 1 
+          })
+        }, 1500)
+      
+        setTimeout(() => {
+            this.setState({ usersTurn: true })
+        }, 3000)
+    }
     
   }
 

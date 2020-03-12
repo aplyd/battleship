@@ -6,7 +6,7 @@ import NewsTicker from './NewsTicker'
 
 export class Gameboard extends Component {
 
-    //cant get this to work so i just conditional map each instead
+    //cant get this to work so i just conditionally map each instead
     //not sure why that works and this wont
     // turn = !this.props.usersTurn ? this.props.user : this.props.computer
 

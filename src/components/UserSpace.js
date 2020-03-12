@@ -15,15 +15,12 @@ export class UserSpace extends Component {
                 backgroundColor: '#a35252'
             }
             styles = Object.assign(styles, damage)
-        }
-
-        if (this.props.damage) {
+        } else if (this.props.damage) {
             const damage = {
                 backgroundColor: '#4B6672'
             }
             styles = Object.assign(styles, damage)
-        }
-        if (this.props.ship) {
+        } else if (this.props.ship) {
             const ship = {
                 backgroundColor: '#8e8e8e'
             }

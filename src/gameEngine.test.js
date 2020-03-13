@@ -1,8 +1,15 @@
-import { generateComputerBoard, generate20UniqueNums, generateComputerAttacks } from './gameEngine'
+import { generateComputerBoard, 
+        generateUniqueNums, 
+        generateComputerAttacks, 
+        coordinatesArr, 
+        getCoordinate, 
+        getIndex,
+        surroundingSpaces,
+        } from './gameEngine'
 
 
 test('length 20', () => {
-    const arr = generate20UniqueNums();
+    const arr = generateUniqueNums(20);
     expect(arr.length).toBe(20);
 })
 
@@ -39,4 +46,34 @@ test('easy comp attack returns 20 unique nums', () => {
 
     expect(isArrayUnique(arr)).toBeTruthy();
     expect(arr.length).toBe(20);
+})
+
+test('a1 === 0', () => {
+    const arr = coordinatesArr();
+
+    expect(arr.length).toBe(100);
+    expect(arr[0]).toBe('a1');
+})
+
+
+test('f6 === 55', () => {
+    const arr = coordinatesArr();
+
+    expect(arr.length).toBe(100);
+    expect(arr[55]).toBe('f6');
+})
+
+test('getCoordinates', () => {
+    expect(getCoordinate(88)).toBe('i9');
+})
+
+
+test('getIndex', () => {
+
+    expect(getIndex('c6')).toBe(52);
+})
+
+test('surrounding spaces', () => {
+
+        expect(surroundingSpaces('c6')).toStrictEqual(['b5','c5', 'd5', 'b6', 'd6', 'b7','c7', 'd7'])
 })

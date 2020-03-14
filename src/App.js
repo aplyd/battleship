@@ -5,9 +5,15 @@ import './App.css'
 import Gameboard from './components/Gameboard'
 import StartGameModal from './components/StartGameModal';
 
-import { generateComputer, generateBoard, generateComputerAttackArr } from './gameEngine';
+import { generateComputerBoard, 
+        generateBoard, 
+        generateComputerAttacks, 
+        getCoordinate,
+        getIndex,
+        getSurroundingSpaces } from './gameEngine';
 
-//TODO - implement "go again" if hit a ship
+//TODO - refactor with "state machine"
+//TODO - confirm empty spaces (ships cant touch, so surrounding areas empty if ship sinks)
 
 export class App extends Component {
   constructor() {
@@ -33,7 +39,6 @@ export class App extends Component {
           allShipsPlaced: true, 
           usersTurn: true
       })}, 2000)
-      
     }
   }
 
@@ -44,8 +49,8 @@ export class App extends Component {
 
   getInitialState = () => {
     const user = generateBoard();
-    const computer = generateComputer();
-    const computerAttacks = generateComputerAttackArr();
+    const computer = generateComputerBoard();
+    const computerAttacks = generateComputerAttacks();
     this.setState({ user, computer, computerAttacks });
   }
   

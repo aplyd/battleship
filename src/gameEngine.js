@@ -32,7 +32,7 @@ export const generateUniqueNums = (n) => {
 //ships
 //1.length x4 | 2.length x3 | 3.length x2 | 4.length x1
 
-export const surroundingSpaces = (coordinate = 'c6') => {
+export const getSurroundingSpaces = (coordinate = 'c6') => {
     //instead of just add/sub from the index of coordinate, using letters helps be aware of edge of grid;
     //the x's are there for fallback. if the returned coordinate is 'x6', its not on the grid. 
     //not necesarry for nums because -1 or 11 aren't on grid either
@@ -115,7 +115,7 @@ export function coordinatesArr() {
     return arr
 }
 
-export function getCoordinate(index) {
+export const getCoordinate = (index) => {
     const arr = coordinatesArr();
 
     return arr[index];

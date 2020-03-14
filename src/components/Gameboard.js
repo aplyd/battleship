@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import UserSpace from './UserSpace'
 import ComputerSpace from './ComputerSpace'
-import NewsTicker from './NewsTicker'
 
 
 export class Gameboard extends Component {
@@ -51,7 +50,7 @@ export class Gameboard extends Component {
                     })}
                     
                 </div>
-            <NewsTicker />
+            
             </React.Fragment>
         )
     }

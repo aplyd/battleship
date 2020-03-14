@@ -4,7 +4,7 @@ import { generateComputerBoard,
         coordinatesArr, 
         getCoordinate, 
         getIndex,
-        surroundingSpaces,
+        getSurroundingSpaces,
         } from './gameEngine'
 
 
@@ -75,5 +75,5 @@ test('getIndex', () => {
 
 test('surrounding spaces', () => {
 
-        expect(surroundingSpaces('c6')).toStrictEqual(['b5','c5', 'd5', 'b6', 'd6', 'b7','c7', 'd7'])
+        expect(getSurroundingSpaces('c6')).toStrictEqual(['b5','c5', 'd5', 'b6', 'd6', 'b7','c7', 'd7'])
 })

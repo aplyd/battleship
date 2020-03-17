@@ -6,12 +6,30 @@ import {
 	getCoordinate,
 	getIndex,
 	getSurroundingSpaces,
-	shipDirections
+	getNextSpace
 } from './gameEngine';
 
 test('length 20', () => {
 	const arr = generateUniqueNums(20);
 	expect(arr.length).toBe(20);
+});
+
+test('should get next space down', () => {
+	expect(getNextSpace('c6', 'down')).toBe('c7');
+});
+
+test('should get next space left', () => {
+	expect(getNextSpace('j6', 'left')).toBe('i6');
+});
+
+test('should get next space right', () => {
+	expect(getNextSpace('h8', 'right')).toBe('i8');
+});
+
+test('should get next space up', () => {
+	expect(getNextSpace('d8', 'up')).toBe('d7');
+	expect(getNextSpace('i9', 'up')).toBe('i8');
+	expect(getNextSpace('d1', 'up')).toBe(null);
 });
 
 // test('should have 20 selections and board size of 100', () => {
@@ -27,18 +45,18 @@ test('length 20', () => {
 //     expect(board.length).toBe(100);
 // })
 
-test('20 random selections should be unique', () => {
-	const board = generateComputerBoard();
-	const randomNumArr = board.filter(num => {
-		if (num[0] == true) {
-			return num;
-		}
-	});
+// test('20 random selections should be unique', () => {
+// 	const board = generateComputerBoard();
+// 	const randomNumArr = board.filter(num => {
+// 		if (num[0] == true) {
+// 			return num;
+// 		}
+// 	});
 
-	const isArrayUnique = arr => new Set(arr).size === arr.length;
+// 	const isArrayUnique = arr => new Set(arr).size === arr.length;
 
-	expect(isArrayUnique(randomNumArr)).toBeTruthy();
-});
+// 	expect(isArrayUnique(randomNumArr)).toBeTruthy();
+// });
 
 test('easy comp attack returns 20 unique nums', () => {
 	const arr = generateComputerAttacks();

@@ -80,30 +80,8 @@ export const getSurroundingSpaces = (coordinate = 'c6') => {
 // 	return board;
 // }
 
-export const shipDirections = (coordinates, direction = 'down', length) => {
-	switch (direction) {
-		case 'up':
-			//do something
-			break;
-		case 'down':
-			//do
-			break;
-		case 'left':
-			//do
-			break;
-		case 'right':
-			//do
-			break;
-		default:
-			console.log('oh no');
-	}
-};
-
-//ships
-//1.length x4 | 2.length x3 | 3.length x2 | 4.length x1
-
-export function generateComputerBoard() {
-	let board = generateBoard();
+//if next space isn't on board, returns null
+export const getNextSpace = (coordinates, direction = 'down') => {
 	const letters = [
 		'x',
 		'x',
@@ -122,6 +100,46 @@ export function generateComputerBoard() {
 		'x',
 		'x'
 	];
+	let letter = coordinates[0];
+	let num = Number(coordinates[1]);
+	let nextNum;
+	let letterIndex = letters.indexOf(letter);
+	let nextLetter;
+	let nextSpace;
+
+	switch (direction) {
+		case 'up':
+			nextNum = num - 1;
+			nextNum < 1 ? (nextSpace = null) : (nextSpace = letter + nextNum);
+			break;
+		case 'down':
+			nextNum = num + 1;
+			nextNum > 10 ? (nextSpace = null) : (nextSpace = letter + nextNum);
+			break;
+		case 'left':
+			nextLetter = letters[letterIndex - 1];
+			nextLetter === 'x'
+				? (nextSpace = null)
+				: (nextSpace = nextLetter + num);
+			break;
+		case 'right':
+			nextLetter = letters[letterIndex + 1];
+			nextLetter === 'x'
+				? (nextSpace = null)
+				: (nextSpace = nextLetter + num);
+			break;
+		default:
+			console.log('oh no, err in getNextSpace func');
+	}
+
+	return nextSpace;
+};
+
+//ships
+//1.length x4 | 2.length x3 | 3.length x2 | 4.length x1
+
+export function generateComputerBoard() {
+	let board = generateBoard();
 	const directions = ['up', 'down', 'left', 'right'];
 	const shipsAndLengths = [1, 1, 1, 1, 2, 2, 2, 3, 3, 4];
 

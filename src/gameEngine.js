@@ -29,9 +29,6 @@ export const generateUniqueNums = n => {
 	return arr;
 };
 
-//ships
-//1.length x4 | 2.length x3 | 3.length x2 | 4.length x1
-
 export const getSurroundingSpaces = (coordinate = 'c6') => {
 	//instead of just add/sub from the index of coordinate, using letters helps be aware of edge of grid;
 	//the x's are there for fallback. if the returned coordinate is 'x6', its not on the grid.
@@ -72,34 +69,71 @@ export const getSurroundingSpaces = (coordinate = 'c6') => {
 	return arr;
 };
 
-const shipDirection = () => {
-	const arr = ['up', 'down', 'right', 'left'];
+// export function generateComputerBoard() {
+// 	let board = generateBoard();
+// 	let arr = generateUniqueNums(20);
+
+// 	arr.forEach(num => {
+// 		board[num][0] = true;
+// 	});
+
+// 	return board;
+// }
+
+export const shipDirections = (coordinates, direction = 'down', length) => {
+	switch (direction) {
+		case 'up':
+			//do something
+			break;
+		case 'down':
+			//do
+			break;
+		case 'left':
+			//do
+			break;
+		case 'right':
+			//do
+			break;
+		default:
+			console.log('oh no');
+	}
 };
 
-const positionShip = direction => {
-	//increment number = down
-	//decrement number = up
-	//increment letter = right
-	//decrement letter = left
-	if (direction === 'up') {
-	}
-
-	if (direction === 'down') {
-	}
-
-	if (direction === 'right') {
-	}
-};
+//ships
+//1.length x4 | 2.length x3 | 3.length x2 | 4.length x1
 
 export function generateComputerBoard() {
 	let board = generateBoard();
-	let arr = generateUniqueNums(20);
+	const letters = [
+		'x',
+		'x',
+		'x',
+		'a',
+		'b',
+		'c',
+		'd',
+		'e',
+		'f',
+		'g',
+		'h',
+		'i',
+		'j',
+		'x',
+		'x',
+		'x'
+	];
+	const directions = ['up', 'down', 'left', 'right'];
+	const shipsAndLengths = [1, 1, 1, 1, 2, 2, 2, 3, 3, 4];
 
-	arr.forEach(num => {
-		board[num][0] = true;
-	});
+	//
+	for (let i = 0; i < shipsAndLengths.length; i++) {
+		let direction = directions[generateRandomNum(4)];
 
-	return board;
+		if (shipsAndLengths[i] === 1) {
+		}
+	}
+
+	// return ships;
 }
 
 export function generateComputerAttacks(difficulty = 'easy') {

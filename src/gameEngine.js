@@ -100,12 +100,17 @@ export const getNextSpace = (coordinates, direction = 'down') => {
 		'x',
 		'x'
 	];
+
 	let letter = coordinates[0];
-	let num = Number(coordinates[1]);
+	let num;
 	let nextNum;
 	let letterIndex = letters.indexOf(letter);
 	let nextLetter;
 	let nextSpace;
+
+	coordinates.length === 2
+		? (num = Number(coordinates[1]))
+		: (num = Number(coordinates.slice(-2)));
 
 	switch (direction) {
 		case 'up':
@@ -129,7 +134,9 @@ export const getNextSpace = (coordinates, direction = 'down') => {
 				: (nextSpace = nextLetter + num);
 			break;
 		default:
-			console.log('oh no, err in getNextSpace func');
+			console.log(
+				'oh no, error in getNextSpace func. didnt pass up, down, left, or right'
+			);
 	}
 
 	return nextSpace;
@@ -138,20 +145,31 @@ export const getNextSpace = (coordinates, direction = 'down') => {
 //ships
 //1.length x4 | 2.length x3 | 3.length x2 | 4.length x1
 
-export function generateComputerBoard() {
-	let board = generateBoard();
+export const generateComputerShip = length => {
+	let ship = [];
 	const directions = ['up', 'down', 'left', 'right'];
-	const shipsAndLengths = [1, 1, 1, 1, 2, 2, 2, 3, 3, 4];
+	const direction = directions[generateRandomNum(4)];
+	const space = getCoordinate(generateRandomNum(100));
 
-	//
-	for (let i = 0; i < shipsAndLengths.length; i++) {
-		let direction = directions[generateRandomNum(4)];
+	ship.push(space);
 
-		if (shipsAndLengths[i] === 1) {
+	if (length > 1) {
+		for (let i = 1; i < length; i++) {
+			ship.unshift(getNextSpace(ship[0], direction));
 		}
 	}
 
-	// return ships;
+	console.log(space);
+	console.log(ship);
+	return ship;
+};
+
+export function generateComputerBoard() {
+	let board = generateBoard();
+	let direction;
+	const shipsAndLengths = [1, 1, 1, 1];
+
+	return;
 }
 
 export function generateComputerAttacks(difficulty = 'easy') {

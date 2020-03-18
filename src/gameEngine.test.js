@@ -6,7 +6,8 @@ import {
 	getCoordinate,
 	getIndex,
 	getSurroundingSpaces,
-	getNextSpace
+	getNextSpace,
+	generateComputerShip
 } from './gameEngine';
 
 test('length 20', () => {
@@ -16,6 +17,10 @@ test('length 20', () => {
 
 test('should get next space down', () => {
 	expect(getNextSpace('c6', 'down')).toBe('c7');
+});
+
+test('space after b10 should be null', () => {
+	expect(getNextSpace('b10', 'down')).toBe(null);
 });
 
 test('should get next space left', () => {
@@ -30,6 +35,18 @@ test('should get next space up', () => {
 	expect(getNextSpace('d8', 'up')).toBe('d7');
 	expect(getNextSpace('i9', 'up')).toBe('i8');
 	expect(getNextSpace('d1', 'up')).toBe(null);
+});
+
+test('comp ship length of 1', () => {
+	const ship = generateComputerShip(1);
+
+	expect(ship.length).toBe(1);
+});
+
+test('ship length of more than 1', () => {
+	let ship = generateComputerShip(4);
+
+	expect(ship.length).toBe(4);
 });
 
 // test('should have 20 selections and board size of 100', () => {

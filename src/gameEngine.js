@@ -80,7 +80,7 @@ export const getSurroundingSpaces = (coordinate = 'c6') => {
 // 	return board;
 // }
 
-//if next space isn't on board, returns null
+//if next space isn't on board, calls itself to try again
 export const getNextSpace = (coordinates, direction = 'down') => {
 	const letters = [
 		'x',
@@ -142,34 +142,50 @@ export const getNextSpace = (coordinates, direction = 'down') => {
 	return nextSpace;
 };
 
-//ships
-//1.length x4 | 2.length x3 | 3.length x2 | 4.length x1
-
 export const generateComputerShip = length => {
 	let ship = [];
-	const directions = ['up', 'down', 'left', 'right'];
-	const direction = directions[generateRandomNum(4)];
-	const space = getCoordinate(generateRandomNum(100));
+	let directions = ['up', 'down', 'left', 'right'];
+	let direction = directions[generateRandomNum(4)];
+	let space = getCoordinate(generateRandomNum(100));
 
 	ship.push(space);
-
+	console.log(direction);
+	console.log('next space is', getNextSpace(ship[0]));
+	//if the length of the ship is 1, return
 	if (length > 1) {
 		for (let i = 1; i < length; i++) {
-			ship.unshift(getNextSpace(ship[0], direction));
+			//if the next space is null (not on the gameboard), create a completely different ship
+			if (getNextSpace(ship[0]) != null) {
+				console.log('doesnt null');
+				ship.unshift(getNextSpace(ship[0], direction));
+			} else {
+				console.log('contains null');
+				generateComputerShip(length);
+			}
 		}
 	}
 
-	console.log(space);
-	console.log(ship);
 	return ship;
 };
 
 export function generateComputerBoard() {
 	let board = generateBoard();
-	let direction;
-	const shipsAndLengths = [1, 1, 1, 1];
+	const shipsAndLengths = [4, 3, 3, 2, 2, 2, 1, 1, 1, 1];
+	let ships = [];
 
-	return;
+	// shipsAndLengths.forEach(shipLength => {
+	//     let ship = generateComputerShip(shipLength);
+
+	//     w
+	// });
+
+	let i = 0;
+	while (i < shipsAndLengths.length) {
+		let ship = generateComputerShip(shipsAndLengths[i]);
+
+		console.log(ship);
+		i++;
+	}
 }
 
 export function generateComputerAttacks(difficulty = 'easy') {

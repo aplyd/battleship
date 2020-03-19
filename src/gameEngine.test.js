@@ -43,7 +43,7 @@ test('comp ship length of 1', () => {
 	expect(ship.length).toBe(1);
 });
 
-test.only('ship length 4', () => {
+test('ship length 4', () => {
 	let ship = generateComputerShip(4);
 
 	expect(ship.length).toBe(4);

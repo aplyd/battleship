@@ -69,17 +69,6 @@ export const getSurroundingSpaces = (coordinate = 'c6') => {
 	return arr;
 };
 
-// export function generateComputerBoard() {
-// 	let board = generateBoard();
-// 	let arr = generateUniqueNums(20);
-
-// 	arr.forEach(num => {
-// 		board[num][0] = true;
-// 	});
-
-// 	return board;
-// }
-
 //if next space isn't on board, calls itself to try again
 export const getNextSpace = (coordinates, direction = 'down') => {
 	const letters = [
@@ -149,19 +138,13 @@ export const generateComputerShip = length => {
 	let space = getCoordinate(generateRandomNum(100));
 
 	ship.push(space);
-	console.log(direction);
-	console.log('next space is', getNextSpace(ship[0]));
-	//if the length of the ship is 1, return
-	if (length > 1) {
-		for (let i = 1; i < length; i++) {
-			//if the next space is null (not on the gameboard), create a completely different ship
-			if (getNextSpace(ship[0]) != null) {
-				console.log('doesnt null');
-				ship.unshift(getNextSpace(ship[0], direction));
-			} else {
-				console.log('contains null');
-				generateComputerShip(length);
-			}
+
+	//TODO - handle null = when next space is off the board
+	for (let i = 1; i < length; i++) {
+		if (getNextSpace(ship[0], direction) === null) {
+			generateComputerShip(length);
+		} else {
+			ship.unshift(getNextSpace(ship[0], direction));
 		}
 	}
 
@@ -172,12 +155,6 @@ export function generateComputerBoard() {
 	let board = generateBoard();
 	const shipsAndLengths = [4, 3, 3, 2, 2, 2, 1, 1, 1, 1];
 	let ships = [];
-
-	// shipsAndLengths.forEach(shipLength => {
-	//     let ship = generateComputerShip(shipLength);
-
-	//     w
-	// });
 
 	let i = 0;
 	while (i < shipsAndLengths.length) {

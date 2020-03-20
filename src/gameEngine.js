@@ -71,61 +71,70 @@ export const getSurroundingSpaces = (coordinate = 'c6') => {
 
 //if next space isn't on board, calls itself to try again
 export const getNextSpace = (coordinates, direction = 'down') => {
-	const letters = [
-		'x',
-		'x',
-		'x',
-		'a',
-		'b',
-		'c',
-		'd',
-		'e',
-		'f',
-		'g',
-		'h',
-		'i',
-		'j',
-		'x',
-		'x',
-		'x'
-	];
-
-	let letter = coordinates[0];
-	let num;
-	let nextNum;
-	let letterIndex = letters.indexOf(letter);
-	let nextLetter;
 	let nextSpace;
 
-	coordinates.length === 2
-		? (num = Number(coordinates[1]))
-		: (num = Number(coordinates.slice(-2)));
+	if (coordinates === null) {
+		nextSpace = null;
+	} else {
+		const letters = [
+			'x',
+			'x',
+			'x',
+			'a',
+			'b',
+			'c',
+			'd',
+			'e',
+			'f',
+			'g',
+			'h',
+			'i',
+			'j',
+			'x',
+			'x',
+			'x'
+		];
 
-	switch (direction) {
-		case 'up':
-			nextNum = num - 1;
-			nextNum < 1 ? (nextSpace = null) : (nextSpace = letter + nextNum);
-			break;
-		case 'down':
-			nextNum = num + 1;
-			nextNum > 10 ? (nextSpace = null) : (nextSpace = letter + nextNum);
-			break;
-		case 'left':
-			nextLetter = letters[letterIndex - 1];
-			nextLetter === 'x'
-				? (nextSpace = null)
-				: (nextSpace = nextLetter + num);
-			break;
-		case 'right':
-			nextLetter = letters[letterIndex + 1];
-			nextLetter === 'x'
-				? (nextSpace = null)
-				: (nextSpace = nextLetter + num);
-			break;
-		default:
-			console.log(
-				'oh no, error in getNextSpace func. didnt pass up, down, left, or right'
-			);
+		let letter = coordinates[0];
+		let num;
+		let nextNum;
+		let letterIndex = letters.indexOf(letter);
+		let nextLetter;
+
+		coordinates.length === 2
+			? (num = Number(coordinates[1]))
+			: (num = Number(coordinates.slice(-2)));
+
+		switch (direction) {
+			case 'up':
+				nextNum = num - 1;
+				nextNum < 1
+					? (nextSpace = null)
+					: (nextSpace = letter + nextNum);
+				break;
+			case 'down':
+				nextNum = num + 1;
+				nextNum > 10
+					? (nextSpace = null)
+					: (nextSpace = letter + nextNum);
+				break;
+			case 'left':
+				nextLetter = letters[letterIndex - 1];
+				nextLetter === 'x'
+					? (nextSpace = null)
+					: (nextSpace = nextLetter + num);
+				break;
+			case 'right':
+				nextLetter = letters[letterIndex + 1];
+				nextLetter === 'x'
+					? (nextSpace = null)
+					: (nextSpace = nextLetter + num);
+				break;
+			default:
+				console.log(
+					'oh no, error in getNextSpace func. didnt pass up, down, left, or right'
+				);
+		}
 	}
 
 	return nextSpace;
@@ -137,15 +146,10 @@ export const generateComputerShip = length => {
 	let direction = directions[generateRandomNum(4)];
 	let space = getCoordinate(generateRandomNum(100));
 
-	ship.push(space);
+	ship.unshift(space);
 
-	//TODO - handle null = when next space is off the board
 	for (let i = 1; i < length; i++) {
-		if (getNextSpace(ship[0], direction) === null) {
-			generateComputerShip(length);
-		} else {
-			ship.unshift(getNextSpace(ship[0], direction));
-		}
+		ship.unshift(getNextSpace(ship[0], direction));
 	}
 
 	return ship;

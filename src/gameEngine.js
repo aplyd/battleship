@@ -6,7 +6,7 @@
 //TODO - function to translate 0-99 to a-j, 0-9 cordinates. then use that for ship placement.
 
 export function generateBoard() {
-	let arr = [];
+	const arr = [];
 	for (let i = 0; i < 100; i++) {
 		arr.push([false, false]);
 	}
@@ -14,19 +14,43 @@ export function generateBoard() {
 	return arr;
 }
 
-const generateRandomNum = n => Math.floor(Math.random() * n);
+const generateRandomNum = (n) => Math.floor(Math.random() * n);
 
-export const generateUniqueNums = n => {
+export const generateUniqueNums = (n) => {
 	const arr = [];
 
 	while (arr.length < 20) {
-		let num = generateRandomNum(n);
+		const num = generateRandomNum(n);
 		if (!arr.includes(num)) {
 			arr.push(num);
 		}
 	}
 
 	return arr;
+};
+
+export function coordinatesArr() {
+	const arr = [...Array(100)];
+	const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'];
+	let num;
+
+	for (let i = 0; i < 10; i++) {
+		for (let j = 0; j < 10; j++) {
+			num = i + 1;
+			arr[Number('' + i + j)] = letters[j] + num.toString();
+		}
+	}
+	return arr;
+}
+
+export const getCoordinate = (index) => {
+	const arr = coordinatesArr();
+
+	return arr[index];
+};
+
+export const getIndex = (coordinate = 'c6') => {
+	return coordinatesArr().indexOf(coordinate);
 };
 
 export const getSurroundingSpaces = (coordinate = 'c6') => {
@@ -49,7 +73,7 @@ export const getSurroundingSpaces = (coordinate = 'c6') => {
 		'j',
 		'x',
 		'x',
-		'x'
+		'x',
 	];
 	const letter = coordinate[0];
 	const num = Number(coordinate[1]);
@@ -92,13 +116,13 @@ export const getNextSpace = (coordinates, direction = 'down') => {
 			'j',
 			'x',
 			'x',
-			'x'
+			'x',
 		];
 
-		let letter = coordinates[0];
+		const letter = coordinates[0];
 		let num;
 		let nextNum;
-		let letterIndex = letters.indexOf(letter);
+		const letterIndex = letters.indexOf(letter);
 		let nextLetter;
 
 		coordinates.length === 2
@@ -132,7 +156,7 @@ export const getNextSpace = (coordinates, direction = 'down') => {
 				break;
 			default:
 				console.log(
-					'oh no, error in getNextSpace func. didnt pass up, down, left, or right'
+					'oh no, error in getNextSpace func. didnt pass up, down, left, or right',
 				);
 		}
 	}
@@ -140,8 +164,8 @@ export const getNextSpace = (coordinates, direction = 'down') => {
 	return nextSpace;
 };
 
-export const generateComputerShip = length => {
-	let ship = [];
+export const generateComputerShip = (length) => {
+	const ship = [];
 	let directions = ['up', 'down', 'left', 'right'];
 	let direction = directions[generateRandomNum(4)];
 	let space = getCoordinate(generateRandomNum(100));
@@ -152,21 +176,20 @@ export const generateComputerShip = length => {
 		ship.unshift(getNextSpace(ship[0], direction));
 	}
 
+	console.log(ship);
 	return ship;
 };
 
 export function generateComputerBoard() {
-	let board = generateBoard();
-	const shipsAndLengths = [4, 3, 3, 2, 2, 2, 1, 1, 1, 1];
-	let ships = [];
+	// const board = generateBoard();
+	const shipLengths = [4, 3, 3, 2, 2, 2, 1, 1, 1, 1];
+	// let ships = [];
 
-	let i = 0;
-	while (i < shipsAndLengths.length) {
-		let ship = generateComputerShip(shipsAndLengths[i]);
+	for (let i = 0; i < shipLengths.length; i++) {}
 
-		console.log(ship);
-		i++;
-	}
+	const ship = generateComputerShip(4);
+
+	return ship;
 }
 
 export function generateComputerAttacks(difficulty = 'easy') {
@@ -178,27 +201,3 @@ export function generateComputerAttacks(difficulty = 'easy') {
 
 	return arr;
 }
-
-export function coordinatesArr() {
-	const arr = [...Array(100)];
-	const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'];
-	let num;
-
-	for (let i = 0; i < 10; i++) {
-		for (let j = 0; j < 10; j++) {
-			num = i + 1;
-			arr[Number('' + i + j)] = letters[j] + num.toString();
-		}
-	}
-	return arr;
-}
-
-export const getCoordinate = index => {
-	const arr = coordinatesArr();
-
-	return arr[index];
-};
-
-export const getIndex = (coordinate = 'c6') => {
-	return coordinatesArr().indexOf(coordinate);
-};

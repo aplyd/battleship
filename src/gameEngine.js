@@ -179,7 +179,7 @@ export const generateComputerShip = (length) => {
 	return ship;
 };
 
-//TODO - goal is to return an array 0-99 with nested array booleans [ship, damage, surroundingAShip]
+//TODO - get surrounding spaces
 export function generateComputerBoard() {
 	const board = generateBoard();
 	const shipLengths = [4, 3, 3, 2, 2, 2, 1, 1, 1, 1];
@@ -208,8 +208,11 @@ export function generateComputerBoard() {
 		}
 	}
 
-	console.log(ships);
-	return ships;
+	ships.forEach((i) => {
+		board[getIndex(i)][0] = true;
+	});
+
+	return board;
 }
 
 export function generateComputerAttacks(difficulty = 'easy') {

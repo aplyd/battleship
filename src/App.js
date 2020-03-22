@@ -11,7 +11,7 @@ import {
 	generateComputerAttacks,
 	getCoordinate,
 	getIndex,
-	getSurroundingSpaces
+	getSurroundingSpaces,
 } from './gameEngine';
 
 //TODO - refactor with "state machine"
@@ -30,7 +30,7 @@ export class App extends Component {
 			allShipsPlaced: false,
 			placedShipCounter: 0,
 			usersTurn: false,
-			attackCounter: 0
+			attackCounter: 0,
 		};
 	}
 
@@ -39,7 +39,7 @@ export class App extends Component {
 			setTimeout(() => {
 				this.setState({
 					allShipsPlaced: true,
-					usersTurn: true
+					usersTurn: true,
 				});
 			}, 2000);
 		}
@@ -56,9 +56,9 @@ export class App extends Component {
 		this.setState({ user, computer, computerAttacks });
 	};
 
-	getUserName = name => {
+	getUserName = (name) => {
 		this.setState({
-			username: name
+			username: name,
 		});
 		this.toggleStartGameModal();
 	};
@@ -75,7 +75,7 @@ export class App extends Component {
 			user[index][0] = true;
 			this.setState({
 				user,
-				placedShipCounter: this.state.placedShipCounter + 1
+				placedShipCounter: this.state.placedShipCounter + 1,
 			});
 		}
 	};
@@ -92,7 +92,7 @@ export class App extends Component {
 			if (computer[index][0] === true) {
 				computer[index][1] = true;
 				this.setState({
-					computer
+					computer,
 				});
 
 				this.setState({ attackCounter: 0 });
@@ -100,7 +100,7 @@ export class App extends Component {
 			} else {
 				computer[index][1] = true;
 				this.setState({
-					computer
+					computer,
 				});
 
 				setTimeout(() => {
@@ -123,7 +123,7 @@ export class App extends Component {
 				user[attackArr[index]][1] = true;
 				this.setState({
 					user,
-					computerAttackCounter: index + 1
+					computerAttackCounter: index + 1,
 				});
 				this.computerAttack();
 			}, 1500);
@@ -132,7 +132,7 @@ export class App extends Component {
 				user[attackArr[index]][1] = true;
 				this.setState({
 					user,
-					computerAttackCounter: index + 1
+					computerAttackCounter: index + 1,
 				});
 			}, 1500);
 

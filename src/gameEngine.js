@@ -176,20 +176,40 @@ export const generateComputerShip = (length) => {
 		ship.unshift(getNextSpace(ship[0], direction));
 	}
 
-	console.log(ship);
 	return ship;
 };
 
+//TODO - goal is to return an array 0-99 with nested array booleans [ship, damage, surroundingAShip]
 export function generateComputerBoard() {
-	// const board = generateBoard();
+	const board = generateBoard();
 	const shipLengths = [4, 3, 3, 2, 2, 2, 1, 1, 1, 1];
-	// let ships = [];
+	let ships = [];
 
-	for (let i = 0; i < shipLengths.length; i++) {}
+	const checkArraysForDuplicates = (arr1, arr2) => {
+		for (let i = 0; i < arr1.length; i++) {
+			for (let j = 0; j < arr2.length; j++) {
+				if (arr1[j] === arr2[i]) {
+					return true;
+				}
+			}
+		}
+	};
 
-	const ship = generateComputerShip(4);
+	for (let i = 0; i < shipLengths.length; i++) {
+		while (true) {
+			let ship = generateComputerShip(shipLengths[i]);
+			if (
+				!ship.includes(null) &&
+				!checkArraysForDuplicates(ships, ship)
+			) {
+				ships = [...ships, ...ship];
+				break;
+			}
+		}
+	}
 
-	return ship;
+	console.log(ships);
+	return ships;
 }
 
 export function generateComputerAttacks(difficulty = 'easy') {

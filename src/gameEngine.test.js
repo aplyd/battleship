@@ -43,21 +43,16 @@ test('comp ship length of 1', () => {
 	expect(ship.length).toBe(1);
 });
 
-test.only('ship length 4', () => {
+test('ship length 4', () => {
 	let ship = generateComputerShip(4);
 
 	expect(ship.length).toBe(4);
 });
 
-test('should have 20 selections and board size of 100', () => {
-	// const randomNumArr = board.filter(num => {
-	// 	if (num[0] == true) {
-	// 		return num;
-	// 	}
-	// });
+test.only('gameboard', () => {
+	const board = generateComputerBoard();
 
-	// expect(randomNumArr.length).toBe(20);
-	expect().toBe();
+	expect(board).toBe();
 });
 
 // test.only('20 random selections should be unique', () => {

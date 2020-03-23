@@ -8,6 +8,7 @@ import {
 	getSurroundingSpaces,
 	getNextSpace,
 	generateComputerShip,
+	isValid,
 } from './gameEngine';
 
 test('length 20', () => {
@@ -49,7 +50,7 @@ test('ship length 4', () => {
 	expect(ship.length).toBe(4);
 });
 
-test.only('gameboard', () => {
+test('gameboard', () => {
 	const board = generateComputerBoard();
 
 	expect(board).toBe();
@@ -109,4 +110,8 @@ test('surrounding spaces', () => {
 		'c7',
 		'd7',
 	]);
+});
+
+test.only('valid surrounding spaces', () => {
+	expect(isValid()).toBe();
 });

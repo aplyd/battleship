@@ -3,8 +3,6 @@
 //normal - computer selection is random, but when it hits a ship, it sinks the rest of the ship
 //hard - computer knows where your ships are, and hits every other time
 
-//TODO - function to translate 0-99 to a-j, 0-9 cordinates. then use that for ship placement.
-
 export function generateBoard() {
 	const arr = [];
 	for (let i = 0; i < 100; i++) {
@@ -75,10 +73,14 @@ export const getSurroundingSpaces = (coordinate = 'c6') => {
 		'x',
 		'x',
 	];
-	const letter = coordinate[0];
-	const num = Number(coordinate[1]);
+
+	if (coordinate !== null) {
+		var letter = coordinate[0];
+		var num = Number(coordinate[1]);
+		var letterIndex = letters.indexOf(letter);
+	}
+
 	let arr = [];
-	const letterIndex = letters.indexOf(letter);
 
 	//god this is ugly
 	arr.push(letters[letterIndex - 1] + (num - 1));
@@ -90,7 +92,25 @@ export const getSurroundingSpaces = (coordinate = 'c6') => {
 	arr.push(letters[letterIndex] + (num + 1));
 	arr.push(letters[letterIndex + 1] + (num + 1));
 
-	return arr;
+	let filtered = arr.filter(
+		(coords) =>
+			!!coords &&
+			Number(coords.substring(1)) <= 10 &&
+			Number(coords.substring(1)) >= 1 &&
+			coords[0] !== 'x',
+	);
+
+	return filtered;
+};
+
+export const isValid = () => {
+	const ship = generateComputerShip(4);
+	console.log('ship is ', ship);
+	const surroundSpaces = ship.map((coords) => {
+		return getSurroundingSpaces(coords);
+	});
+
+	console.log(surroundSpaces);
 };
 
 //if next space isn't on board, calls itself to try again
@@ -197,10 +217,11 @@ export function generateComputerBoard() {
 
 	for (let i = 0; i < shipLengths.length; i++) {
 		while (true) {
-			let ship = generateComputerShip(shipLengths[i]);
+			const ship = generateComputerShip(shipLengths[i]);
+			//
 			if (
-				!ship.includes(null) &&
-				!checkArraysForDuplicates(ships, ship)
+				!ship.includes(null) && //valid board placement
+				!checkArraysForDuplicates(ships, ship) //no duplicates
 			) {
 				ships = [...ships, ...ship];
 				break;

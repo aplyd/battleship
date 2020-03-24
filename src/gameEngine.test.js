@@ -8,7 +8,7 @@ import {
 	getSurroundingSpaces,
 	getNextSpace,
 	generateComputerShip,
-	isValid,
+	checkArraysForDuplicates,
 } from './gameEngine';
 
 test('length 20', () => {
@@ -50,24 +50,42 @@ test('ship length 4', () => {
 	expect(ship.length).toBe(4);
 });
 
-test('gameboard', () => {
-	const board = generateComputerBoard();
+test.only('20 ship selections should be unique', () => {
+	const ships = generateComputerBoard();
+	// const randomNumArr = board.filter((num) => num[0] === true);
 
-	expect(board).toBe();
+	const isArrayUnique = (arr) => new Set(arr).size === arr.length;
+
+	expect(isArrayUnique(ships)).toBe(true);
 });
 
-// test.only('20 random selections should be unique', () => {
-// 	const board = generateComputerBoard();
-// 	const randomNumArr = board.filter(num => {
-// 		if (num[0] == true) {
-// 			return num;
-// 		}
-// 	});
+test('check array concat methods', () => {
+	const arr1 = ['a1', 'a2', 'a3', 'b5', 'c6'];
+	const arr2 = ['a4', 'a5', 'a7', 'b6', 'c7'];
 
-// 	const isArrayUnique = arr => new Set(arr).size === arr.length;
+	let arrSpread = [...arr1, ...arr2];
+	arr1.push(...arr2);
 
-// 	expect(isArrayUnique(randomNumArr)).toBeTruthy();
-// });
+	console.log('spread is ', arrSpread);
+	console.log('push is ', arr1);
+
+	expect(arrSpread.sort()).toEqual(arr1.sort());
+});
+
+//test return value of checkarraysfordupplcated
+test('duplicates in arrays', () => {
+	const arr1 = ['a1', 'a2', 'a3', 'b5', 'c6'];
+	const arr2 = ['a4', 'a5', 'a7', 'b6', 'c7'];
+	const isArrayUnique = (arr) => new Set(arr).size === arr.length;
+
+	let value;
+
+	if (arr1 && !checkArraysForDuplicates(arr1, arr2)) {
+		value = true;
+	}
+
+	expect(value).toBe(true);
+});
 
 test('easy comp attack returns 20 unique nums', () => {
 	const arr = generateComputerAttacks();
@@ -75,6 +93,20 @@ test('easy comp attack returns 20 unique nums', () => {
 
 	expect(isArrayUnique(arr)).toBeTruthy();
 	expect(arr.length).toBe(20);
+});
+
+test('should be unique items', () => {
+	const arr1 = ['a1', 'a2', 'a3', 'b5', 'c6'];
+	const arr2 = ['a4', 'a5', 'a3', 'b6', 'c7'];
+	const bothArr = [...arr1, ...arr2];
+
+	let value = checkArraysForDuplicates(arr1, arr2);
+
+	const isArrayUnique = (arr) =>
+		Array.isArray(arr) && new Set(arr).size === arr.length;
+
+	expect(isArrayUnique(bothArr)).toBe(false);
+	expect(checkArraysForDuplicates(arr1, arr2)).toBe(true);
 });
 
 test('a1 === 0', () => {
@@ -110,8 +142,4 @@ test('surrounding spaces', () => {
 		'c7',
 		'd7',
 	]);
-});
-
-test.only('valid surrounding spaces', () => {
-	expect(isValid()).toBe();
 });

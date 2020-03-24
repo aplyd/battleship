@@ -47,7 +47,7 @@ export const getCoordinate = (index) => {
 	return arr[index];
 };
 
-export const getIndex = (coordinate = 'c6') => {
+export const getIndex = (coordinate) => {
 	return coordinatesArr().indexOf(coordinate);
 };
 
@@ -103,17 +103,6 @@ export const getSurroundingSpaces = (coordinate = 'c6') => {
 	return filtered;
 };
 
-export const isValid = () => {
-	const ship = generateComputerShip(4);
-	console.log('ship is ', ship);
-	const surroundSpaces = ship.map((coords) => {
-		return getSurroundingSpaces(coords);
-	});
-
-	console.log(surroundSpaces);
-};
-
-//if next space isn't on board, calls itself to try again
 export const getNextSpace = (coordinates, direction = 'down') => {
 	let nextSpace;
 
@@ -199,6 +188,16 @@ export const generateComputerShip = (length) => {
 	return ship;
 };
 
+export const checkArraysForDuplicates = (arr1, arr2) => {
+	for (let i = 0; i < arr1.length; i++) {
+		for (let j = 0; j < arr2.length; j++) {
+			if (arr1[j] === arr2[i]) {
+				return true;
+			}
+		}
+	}
+};
+
 //TODO - get surrounding spaces
 export function generateComputerBoard() {
 	const board = generateBoard();
@@ -218,22 +217,25 @@ export function generateComputerBoard() {
 	for (let i = 0; i < shipLengths.length; i++) {
 		while (true) {
 			const ship = generateComputerShip(shipLengths[i]);
-			//
+			const surrounding = ship.map((i) => getSurroundingSpaces(i));
+
 			if (
-				!ship.includes(null) && //valid board placement
-				!checkArraysForDuplicates(ships, ship) //no duplicates
+				//valid board placement
+				!checkArraysForDuplicates(ship, ships) //no duplicates
 			) {
-				ships = [...ships, ...ship];
+				console.log(ship);
+				ships.push(...ship);
 				break;
 			}
 		}
 	}
 
-	ships.forEach((i) => {
-		board[getIndex(i)][0] = true;
-	});
+	// ships.forEach((i) => {
+	// 	board[getIndex(i)][0] = true;
+	// });
 
-	return board;
+	// return board;
+	return ships;
 }
 
 export function generateComputerAttacks(difficulty = 'easy') {

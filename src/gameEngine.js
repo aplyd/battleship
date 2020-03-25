@@ -188,54 +188,43 @@ export const generateComputerShip = (length) => {
 	return ship;
 };
 
-export const checkArraysForDuplicates = (arr1, arr2) => {
-	for (let i = 0; i < arr1.length; i++) {
-		for (let j = 0; j < arr2.length; j++) {
-			if (arr1[j] === arr2[i]) {
-				return true;
-			}
-		}
-	}
-};
-
 //TODO - get surrounding spaces
 export function generateComputerBoard() {
 	const board = generateBoard();
 	const shipLengths = [4, 3, 3, 2, 2, 2, 1, 1, 1, 1];
 	let ships = [];
 
-	const checkArraysForDuplicates = (arr1, arr2) => {
-		for (let i = 0; i < arr1.length; i++) {
-			for (let j = 0; j < arr2.length; j++) {
-				if (arr1[j] === arr2[i]) {
-					return true;
-				}
+	const checkForDuplicates = (mainArr, newArr) => {
+		let value = false;
+		mainArr.forEach((item) => {
+			if (newArr.includes(item)) {
+				value = true;
 			}
-		}
+		});
+		return value;
 	};
 
 	for (let i = 0; i < shipLengths.length; i++) {
 		while (true) {
 			const ship = generateComputerShip(shipLengths[i]);
-			const surrounding = ship.map((i) => getSurroundingSpaces(i));
+			// const surrounding = ship.map((i) => getSurroundingSpaces(i));
+			// const shipAndSurrounding = [...ship, ...surrounding];
 
 			if (
-				//valid board placement
-				!checkArraysForDuplicates(ship, ships) //no duplicates
+				!ship.includes(null) && //valid placement
+				!checkForDuplicates(ships, ship)
 			) {
-				console.log(ship);
 				ships.push(...ship);
 				break;
 			}
 		}
 	}
 
-	// ships.forEach((i) => {
-	// 	board[getIndex(i)][0] = true;
-	// });
+	ships.forEach((i) => {
+		board[getIndex(i)][0] = true;
+	});
 
-	// return board;
-	return ships;
+	return board;
 }
 
 export function generateComputerAttacks(difficulty = 'easy') {

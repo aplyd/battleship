@@ -193,7 +193,7 @@ export function generateComputerBoard() {
 	const board = generateBoard();
 	const shipLengths = [4, 3, 3, 2, 2, 2, 1, 1, 1, 1];
 	let ships = [];
-	let other = [];
+	let surroundingSpaces = [];
 
 	const checkForDuplicates = (mainArr, newArr) => {
 		let value = false;
@@ -205,19 +205,29 @@ export function generateComputerBoard() {
 		return value;
 	};
 
+	const flattenAndRemoveDuplicates = (ship) => {
+		let arr = [];
+		ship.forEach((space) => {
+			arr.push(getSurroundingSpaces(space));
+		});
+
+		return [...new Set(arr.flat())];
+	};
+
 	for (let i = 0; i < shipLengths.length; i++) {
 		while (true) {
 			const ship = generateComputerShip(shipLengths[i]);
-			//TODO - combine all arrays, then remove duplicates, boomshakalaka
-			const surrounding = ship.map((i) => getSurroundingSpaces(i));
+			//TODO - combine all arrays, then remove duplicates,
+			const surrounding = flattenAndRemoveDuplicates(ship);
 
-			console.log(surrounding);
 			if (
 				!ship.includes(null) && //valid placement
-				!checkForDuplicates(ships, ship) //no dupes
-				// !checkForDuplicates(other, surrounding)
+				!checkForDuplicates(ships, ship) && //no duplicate ship spaces
+				!checkForDuplicates(ships, surrounding)
+				// !checkForDuplicates(surroundingSpaces, surrounding)
 			) {
 				ships.push(...ship);
+				// surroundingSpaces.push(...surrounding);
 				break;
 			}
 		}

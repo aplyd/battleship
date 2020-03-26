@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { getCoordinate } from '../gameEngine';
 
 export class UserSpace extends Component {
 	//place ships: click = gray
@@ -39,7 +40,12 @@ export class UserSpace extends Component {
 				role='presentation'
 				// style={ this.props.ship ? {backgroundColor: 'black'} : {backgroundColor: 'grey'} }
 			>
-				<p>{this.props.index}</p>
+				<p>
+					{this.props.index}{' '}
+					<b style={{ color: 'white' }}>
+						{getCoordinate(this.props.index)}
+					</b>
+				</p>
 			</div>
 		);
 	}

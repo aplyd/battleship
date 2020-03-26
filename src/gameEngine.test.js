@@ -50,7 +50,7 @@ test('ship length 4', () => {
 	expect(ship.length).toBe(4);
 });
 
-test.only('20 ship selections should be unique', () => {
+test('20 ship selections should be unique', () => {
 	const ships = generateComputerBoard();
 	// const randomNumArr = board.filter((num) => num[0] === true);
 
@@ -142,4 +142,43 @@ test('surrounding spaces', () => {
 		'c7',
 		'd7',
 	]);
+});
+
+test.only('f10 surrounding', () => {
+	let coords = getSurroundingSpaces('f10');
+	console.log(coords);
+});
+
+test('proper spacing', () => {
+	const board = [];
+
+	[...Array(20)].forEach((i) => {
+		board.push([false, false, 0]);
+	});
+
+	const surrounding = [0, 2, 10, 16];
+
+	surrounding.forEach((i) => {
+		board[i][2] += 0.5;
+		board[i + 1][2] += 1;
+	});
+
+	const shouldBeOkay = [0, 4, 5, 10, 14];
+	const shouldNotWork = [1, 3, 8, 11, 19];
+
+	console.log(board);
+
+	const willShipsHaveProperSpacing = (surrounding) => {
+		let value = true;
+		for (let i of surrounding) {
+			if (board[i][2] + 0.5 > 1) {
+				value = false;
+				break;
+			}
+		}
+		return value;
+	};
+
+	expect(willShipsHaveProperSpacing(shouldBeOkay)).toBe(true);
+	expect(willShipsHaveProperSpacing(shouldNotWork)).toBe(false);
 });

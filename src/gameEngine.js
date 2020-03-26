@@ -6,7 +6,7 @@
 export function generateBoard() {
 	const arr = [];
 	for (let i = 0; i < 100; i++) {
-		arr.push([false, false]);
+		arr.push([false, false, 0]);
 	}
 
 	return arr;
@@ -193,7 +193,7 @@ export function generateComputerBoard() {
 	const board = generateBoard();
 	const shipLengths = [4, 3, 3, 2, 2, 2, 1, 1, 1, 1];
 	let ships = [];
-	let surroundingSpaces = [];
+	let shipsAndSurrounding = [];
 
 	const checkForDuplicates = (mainArr, newArr) => {
 		let value = false;
@@ -205,7 +205,7 @@ export function generateComputerBoard() {
 		return value;
 	};
 
-	const flattenAndRemoveDuplicates = (ship) => {
+	const getCorrectSurroundingSpaces = (ship) => {
 		let arr = [];
 		ship.forEach((space) => {
 			arr.push(getSurroundingSpaces(space));
@@ -217,17 +217,24 @@ export function generateComputerBoard() {
 	for (let i = 0; i < shipLengths.length; i++) {
 		while (true) {
 			const ship = generateComputerShip(shipLengths[i]);
-			//TODO - combine all arrays, then remove duplicates,
-			const surrounding = flattenAndRemoveDuplicates(ship);
+			const surrounding = getCorrectSurroundingSpaces(ship);
 
 			if (
 				!ship.includes(null) && //valid placement
-				!checkForDuplicates(ships, ship) && //no duplicate ship spaces
-				!checkForDuplicates(ships, surrounding)
-				// !checkForDuplicates(surroundingSpaces, surrounding)
+				!checkForDuplicates(ships, ship) //no duplicate ship spaces
 			) {
 				ships.push(...ship);
-				// surroundingSpaces.push(...surrounding);
+				//storing surrounding spaces to use for when the ship sinks
+				shipsAndSurrounding.push({
+					index: i,
+					length: shipLengths[i],
+					ship,
+					surrounding,
+				});
+				//.5 is added because two ships can share bordering spaces. number can never exceed 1
+				surrounding.forEach((i) => {
+					board[getIndex(i)][2] += 0.5;
+				});
 				break;
 			}
 		}
@@ -236,6 +243,8 @@ export function generateComputerBoard() {
 	ships.forEach((i) => {
 		board[getIndex(i)][0] = true;
 	});
+
+	console.log(board);
 
 	return board;
 }

@@ -17,11 +17,15 @@ import {
 //TODO - refactor with "state machine"
 //TODO - confirm empty spaces (ships cant touch, so surrounding areas empty if ship sinks)
 
+//NOTE - changed to see computer ship placement.
+//to fix, set userTurn to false, isModalOpen to true and fix display of ships in computerSpace
+
+//board spaces have 3 options [false, false, 0]. [0] is ship, [1] is damage, [0] is space touching ship
 export class App extends Component {
 	constructor() {
 		super();
 		this.state = {
-			isModalOpen: true,
+			isModalOpen: false,
 			username: '',
 			user: null,
 			computer: null,
@@ -29,7 +33,7 @@ export class App extends Component {
 			computerAttackCounter: 0,
 			allShipsPlaced: false,
 			placedShipCounter: 0,
-			usersTurn: false,
+			usersTurn: true,
 			attackCounter: 0,
 		};
 	}

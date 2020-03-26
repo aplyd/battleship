@@ -95,8 +95,6 @@ export const getSurroundingSpaces = (coordinate = 'c6') => {
 	arr.push(letters[letterIndex] + (num + 1));
 	arr.push(letters[letterIndex + 1] + (num + 1));
 
-	console.log(arr);
-
 	let filtered = arr.filter(
 		(coords) =>
 			!!coords &&
@@ -219,18 +217,6 @@ export function generateComputerBoard() {
 		return [...new Set(arr.flat())];
 	};
 
-	const willShipsHaveProperSpacing = (surrounding) => {
-		let value = true;
-		for (let i of surrounding) {
-			if (board[getIndex(i)][2] + 0.5 > 1) {
-				value = false;
-				break;
-			}
-		}
-		console.log(value);
-		return value;
-	};
-
 	for (let i = 0; i < shipLengths.length; i++) {
 		while (true) {
 			const ship = generateComputerShip(shipLengths[i]);
@@ -239,20 +225,15 @@ export function generateComputerBoard() {
 			if (
 				!ship.includes(null) && //valid placement
 				!checkForDuplicates(ships, ship) && //no duplicate ship spaces
-				willShipsHaveProperSpacing(surrounding) &&
 				!checkForDuplicates(ships, surrounding)
 			) {
 				ships.push(...ship);
-				//storing surrounding spaces to use for when the ship sinks
+				//storing surrounding spaces to use for when the ship sinks and need to reveal surrounding
 				shipsAndSurrounding.push({
 					index: i,
 					length: shipLengths[i],
 					ship,
 					surrounding,
-				});
-				//.5 is added because two ships can share bordering spaces. number can never exceed 1
-				surrounding.forEach((i) => {
-					board[getIndex(i)][2] += 0.5;
 				});
 
 				break;
@@ -263,9 +244,6 @@ export function generateComputerBoard() {
 	ships.forEach((i) => {
 		board[getIndex(i)][0] = true;
 	});
-
-	console.log(shipsAndSurrounding);
-	console.log(board);
 
 	return board;
 }

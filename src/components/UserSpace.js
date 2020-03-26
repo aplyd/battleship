@@ -42,7 +42,7 @@ export class UserSpace extends Component {
 			>
 				<p>
 					{this.props.index}{' '}
-					<b style={{ color: 'white' }}>
+					<b style={{ color: 'grey' }}>
 						{getCoordinate(this.props.index)}
 					</b>
 				</p>

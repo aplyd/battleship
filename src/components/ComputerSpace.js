@@ -19,13 +19,7 @@ export class ComputerSpace extends Component {
 				backgroundColor: '#4B6672',
 			};
 			styles = Object.assign(styles, damage);
-		} else if (this.props.ship) {
-			const ship = {
-				backgroundColor: '#8e8e8e',
-			};
-			styles = Object.assign(styles, ship);
 		}
-
 		return styles;
 	};
 

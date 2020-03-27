@@ -5,7 +5,7 @@ export class StartGameModal extends Component {
 		super();
 		this.state = {
 			name: '',
-			value: 'easy',
+			difficulty: 'easy',
 		};
 	}
 
@@ -14,13 +14,13 @@ export class StartGameModal extends Component {
 	};
 
 	handleDifficultyChange = (event) => {
-		this.setState({ value: event.target.value });
+		this.setState({ difficulty: event.target.value });
 	};
 
 	handleSubmit = (event) => {
 		event.preventDefault();
 
-		this.props.setUserSettings(this.state.name, this.state.value);
+		this.props.setUserSettings(this.state.name, this.state.difficulty);
 
 		this.setState({ name: '' });
 	};
@@ -37,19 +37,37 @@ export class StartGameModal extends Component {
 							onChange={this.handleChange}
 							placeholder='Name'
 						></input>
+						difficulty:
+						<div onChange={this.handleDifficultyChange}>
+							<label>
+								easy
+								<input
+									type='radio'
+									name='difficulty'
+									value='easy'
+								/>
+							</label>
+							<label>
+								medium
+								<input
+									type='radio'
+									name='difficulty'
+									value='medium'
+								/>
+							</label>
+							<label>
+								hard
+								<input
+									type='radio'
+									name='difficulty'
+									value='hard'
+								/>
+							</label>
+						</div>
+						{/* <p>ship color:</p>
+						<p>dark mode:</p>
 
-						<label>
-							difficulty:
-							<select
-								value={this.state.value}
-								onChange={this.handleDifficultyChange}
-							>
-								<option value='easy'>Easy</option>
-								<option value='medium'>Medium</option>
-								<option value='hard'>Hard</option>
-							</select>
-						</label>
-
+						<p>about me and how i made this</p> */}
 						<button type='submit'>play</button>
 					</form>
 				</div>

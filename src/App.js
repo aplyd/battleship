@@ -15,7 +15,10 @@ import {
 } from './gameEngine';
 
 //TODO - refactor with "state machine"
-//TODO - confirm empty spaces (ships cant touch, so surrounding areas empty if ship sinks)
+//TODO - confirm empty spaces (surrounding areas empty if ship sinks)
+//TODO - handle user ship placement
+//TODO - fix game timing and create announcements for win/lose
+//TODO - implement difficulty for computer attacks
 
 //board spaces have 3 options [false, false, 0]. [0] is ship, [1] is damage, [0] is space touching ship
 export class App extends Component {

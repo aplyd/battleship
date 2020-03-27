@@ -104,16 +104,39 @@ button {
 	top: 25%;
 	bottom: 25%;
 	margin: auto;
-	border-radius: 20px;
+	border-radius: 10px;
 	background: black;
-	padding: 10px;
-	text-align: center;
+	padding: 20px;
 	color: white;
+	/* align-items: center; */
+}
+
+.modal > h1 {
+	padding-bottom: 20px;
+}
+
+.modal > form > button {
+	display: block;
+	width: 100%;
+}
+
+.modal > form > input[type='text'] {
+	display: block;
+	width: 100%;
+}
+
+.difficulty {
+	padding: 40px 20px 40px 0;
+	display: inline-block;
 }
 
 .difficulty-select {
-	width: 200px;
-	position: relative;
+	display: inline-block;
+}
+
+.about-info {
+	position: absolute;
+	bottom: 20px;
 }
 
 /* NEWS TICKER */

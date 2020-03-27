@@ -37,8 +37,11 @@ export class StartGameModal extends Component {
 							onChange={this.handleChange}
 							placeholder='Name'
 						></input>
-						difficulty:
-						<div onChange={this.handleDifficultyChange}>
+						<p className='difficulty'>difficulty:</p>
+						<div
+							onChange={this.handleDifficultyChange}
+							className='difficulty-select'
+						>
 							<label>
 								easy
 								<input
@@ -65,11 +68,24 @@ export class StartGameModal extends Component {
 							</label>
 						</div>
 						{/* <p>ship color:</p>
-						<p>dark mode:</p>
-
-						<p>about me and how i made this</p> */}
+						<p>dark mode:</p>*/}
 						<button type='submit'>play</button>
 					</form>
+					<p className='about-info'>
+						made by austin ftacnik{' '}
+						<a
+							href='https://github.com/aplyd/battleship'
+							target='_blank'
+						>
+							github
+						</a>{' '}
+						<a
+							href='https://twitter.com/austinftacnik'
+							target='_blank'
+						>
+							twitter
+						</a>
+					</p>
 				</div>
 			</div>
 		);

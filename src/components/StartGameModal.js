@@ -36,6 +36,7 @@ export class StartGameModal extends Component {
 							value={this.state.name}
 							onChange={this.handleChange}
 							placeholder='Name'
+							autoFocus
 						></input>
 						<p className='difficulty'>difficulty:</p>
 						<div
@@ -49,6 +50,7 @@ export class StartGameModal extends Component {
 									name='difficulty'
 									value='easy'
 								/>
+								<span className='difficulty-radio'></span>
 							</label>
 							<label>
 								medium
@@ -57,6 +59,7 @@ export class StartGameModal extends Component {
 									name='difficulty'
 									value='medium'
 								/>
+								<span className='difficulty-radio'></span>
 							</label>
 							<label>
 								hard
@@ -65,6 +68,7 @@ export class StartGameModal extends Component {
 									name='difficulty'
 									value='hard'
 								/>
+								<span className='difficulty-radio'></span>
 							</label>
 						</div>
 						{/* <p>ship color:</p>
@@ -76,12 +80,14 @@ export class StartGameModal extends Component {
 						<a
 							href='https://github.com/aplyd/battleship'
 							target='_blank'
+							rel='noopener noreferrer'
 						>
 							github
 						</a>{' '}
 						<a
 							href='https://twitter.com/austinftacnik'
 							target='_blank'
+							rel='noopener noreferrer'
 						>
 							twitter
 						</a>

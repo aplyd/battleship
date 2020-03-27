@@ -12,7 +12,7 @@ export function generateBoard() {
 	return arr;
 }
 
-const generateRandomNum = (n) => Math.floor(Math.random() * n);
+export const generateRandomNum = (n) => Math.floor(Math.random() * n);
 
 export const generateUniqueNums = (n) => {
 	const arr = [];
@@ -74,6 +74,7 @@ export const getSurroundingSpaces = (coordinate = 'c6') => {
 		'x',
 	];
 
+	//var because something something block scoped
 	if (coordinate !== null) {
 		var num;
 		var letter = coordinate[0];

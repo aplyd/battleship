@@ -9,6 +9,7 @@ import {
 	generateComputerBoard,
 	generateBoard,
 	generateComputerAttacks,
+	generateRandomNum,
 	getCoordinate,
 	getIndex,
 	getSurroundingSpaces,
@@ -28,6 +29,7 @@ export class App extends Component {
 			isModalOpen: true,
 			username: '',
 			user: null,
+			userShips: [],
 			computer: null,
 			computerAttacks: [],
 			computerAttackCounter: 0,
@@ -41,12 +43,13 @@ export class App extends Component {
 
 	componentDidUpdate(prevProps, prevState) {
 		if (prevState.placedShipCounter === 19) {
+			this.setDifficulty();
 			setTimeout(() => {
 				this.setState({
 					allShipsPlaced: true,
 					usersTurn: true,
 				});
-			}, 2000);
+			}, 1500);
 		}
 	}
 
@@ -75,6 +78,9 @@ export class App extends Component {
 
 	handleSpaceClick = (e, index) => {
 		const user = [...this.state.user];
+		const userShips = this.state.userShips;
+
+		userShips.push(index);
 
 		//placing the ships until all 20 are placed
 		if (this.state.placedShipCounter <= 19 && user[index][0] === false) {
@@ -82,6 +88,7 @@ export class App extends Component {
 			this.setState({
 				user,
 				placedShipCounter: this.state.placedShipCounter + 1,
+				userShips,
 			});
 		}
 	};
@@ -112,7 +119,7 @@ export class App extends Component {
 				setTimeout(() => {
 					this.setState({ usersTurn: false, attackCounter: 0 });
 					this.computerAttack();
-				}, 3000);
+				}, 1500);
 			}
 		}
 	};
@@ -122,6 +129,23 @@ export class App extends Component {
 		const user = [...this.state.user];
 		const attackArr = this.state.computerAttacks;
 		const index = this.state.computerAttackCounter;
+		// let difficulty;
+
+		// const getDifficulty = () => {
+		// 	switch(this.state.difficulty) {
+		// 		case 'easy':
+		// 			user[attackArr[index]][1] = true;
+		// 			break;
+		// 		case 'medium':
+		// 			if
+		// 			break;
+		// 		case 'hard':
+		// 			//code;
+		// 			break;
+		// 		default:
+		// 			//code
+		// 	}
+		// }
 
 		////if attack hits ship, allow for another turn
 		if (user[attackArr[index]][0] === true) {
@@ -132,7 +156,7 @@ export class App extends Component {
 					computerAttackCounter: index + 1,
 				});
 				this.computerAttack();
-			}, 1500);
+			}, 1000);
 		} else {
 			setTimeout(() => {
 				user[attackArr[index]][1] = true;
@@ -140,11 +164,45 @@ export class App extends Component {
 					user,
 					computerAttackCounter: index + 1,
 				});
-			}, 1500);
+			}, 1000);
 
 			setTimeout(() => {
 				this.setState({ usersTurn: true });
-			}, 3000);
+			}, 2000);
+		}
+	};
+
+	setDifficulty = () => {
+		const computerAttacks = new Array(20).fill(null);
+		if (this.state.difficulty === 'medium') {
+			for (let i = 0; i < this.state.userShips.length; i++) {
+				if (i % 3 === 0) {
+					computerAttacks[i] = this.state.userShips[i];
+				}
+			}
+		}
+
+		//working here
+		while (computerAttacks.includes(null)) {
+			let index = computerAttacks.indexOf(null);
+			let num = generateRandomNum(100);
+			if (!computerAttacks.includes(num)) {
+				computerAttacks[index] = num;
+			}
+			break;
+		}
+
+		this.setState({
+			computerAttacks,
+		});
+
+		console.log(this.state.userShips);
+		console.log(this.state.computerAttacks);
+	};
+
+	displayTurnKeeper = () => {
+		if (this.state.allShipsPlaced) {
+			return this.state.usersTurn ? '<' : '>';
 		}
 	};
 
@@ -155,6 +213,15 @@ export class App extends Component {
 					<StartGameModal setUserSettings={this.setUserSettings} />
 				) : null}
 
+				<div className='turn-keeper'>
+					<h2>
+						{this.state.username ? this.state.username : 'player'}
+					</h2>
+					<h2 className='turn-keeper-arrow'>
+						{this.displayTurnKeeper()}
+					</h2>
+					<h2>computer</h2>
+				</div>
 				<div id='gameboard-container'>
 					<Gameboard
 						user={this.state.user}

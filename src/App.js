@@ -32,6 +32,7 @@ export class App extends Component {
 			placedShipCounter: 0,
 			usersTurn: false,
 			attackCounter: 0,
+			difficulty: 'easy',
 		};
 	}
 
@@ -57,9 +58,10 @@ export class App extends Component {
 		this.setState({ user, computer, computerAttacks });
 	};
 
-	getUserName = (name) => {
+	setUserSettings = (name, difficulty) => {
 		this.setState({
 			username: name,
+			difficulty,
 		});
 		this.toggleStartGameModal();
 	};
@@ -147,7 +149,7 @@ export class App extends Component {
 		return (
 			<React.Fragment>
 				{this.state.isModalOpen ? (
-					<StartGameModal getUserName={this.getUserName} />
+					<StartGameModal setUserSettings={this.setUserSettings} />
 				) : null}
 
 				<div id='gameboard-container'>

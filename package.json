@@ -48,7 +48,8 @@
 			],
 			"arrow-parens": "off",
 			"no-plusplus": "off",
-			"spaced-comment": "off"
+			"spaced-comment": "off",
+			"jsx-a11y/no-onchange": "off"
 		}
 	},
 	"browserslist": {

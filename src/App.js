@@ -156,17 +156,32 @@ export class App extends Component {
 	};
 
 	setDifficulty = () => {
-		//easy is random, medium = every 3rd attack guarentee, hard every 2nd attack guarantee
-		const computerAttacks = new Array(20).fill(null);
-		if (this.state.difficulty === 'medium') {
-			for (let i = 0; i < this.state.userShips.length; i++) {
+		let computerAttacks;
+		let userShipsCounter = 0;
+
+		//easy is random, medium = every 3rd attack garuantee, hard every 2nd attack garuantee
+		if (this.state.difficulty === 'easy') {
+			computerAttacks = new Array(100).fill(null);
+		} else if (this.state.difficulty === 'medium') {
+			computerAttacks = new Array(60).fill(null);
+
+			for (let i = 0; i < computerAttacks.length; i++) {
 				if (i % 3 === 0) {
-					computerAttacks[i] = this.state.userShips[i];
+					computerAttacks[i] = this.state.userShips[userShipsCounter];
+					userShipsCounter++;
+				}
+			}
+		} else if (this.state.difficulty === 'hard') {
+			computerAttacks = new Array(40).fill(null);
+
+			for (let i = 0; i < computerAttacks.length; i++) {
+				if (i % 2 === 0) {
+					computerAttacks[i] = this.state.userShips[userShipsCounter];
+					userShipsCounter++;
 				}
 			}
 		}
 
-		//fills in the remainder of computer attacks with random
 		for (let i = 0; i < computerAttacks.length; i++) {
 			if (computerAttacks[i] === null) {
 				while (true) {

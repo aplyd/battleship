@@ -8,21 +8,33 @@ for (let i = 0; i < 20; i++) {
 
 const setDifficulty = (difficulty = 'medium') => {
 	const computerAttacks = new Array(20).fill(null);
-	if (this.state.difficulty === 'medium') {
+	if (difficulty === 'medium') {
 		for (let i = 0; i < userShips.length; i++) {
 			if (i % 3 === 0) {
-				computerAttacks[i] = this.state.userShips[i];
+				computerAttacks[i] = userShips[i];
 			}
 		}
 	}
+	return computerAttacks;
 };
 
-// //working here
-// while (computerAttacks.includes(null)) {
-// 	let index = computerAttacks.indexOf(null);
-// 	let num = generateRandomNum(100);
-// 	if (!computerAttacks.includes(num)) {
-// 		computerAttacks[index] = num;
-// 	}
-// 	break;
-// }
+let arr = setDifficulty();
+
+//fills in the remainder of the array with unique, random values
+for (let i = 0; i < arr.length; i++) {
+	if (arr[i] === null) {
+		while (true) {
+			let num = generateRandomNum(100);
+			if (arr.indexOf(num) < 0) {
+				arr[i] = num;
+				break;
+			}
+		}
+	}
+}
+
+//test for unique
+const isArrayUnique = (arr) =>
+	Array.isArray(arr) && new Set(arr).size === arr.length;
+
+console.log(isArrayUnique(arr));

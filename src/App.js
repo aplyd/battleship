@@ -129,23 +129,6 @@ export class App extends Component {
 		const user = [...this.state.user];
 		const attackArr = this.state.computerAttacks;
 		const index = this.state.computerAttackCounter;
-		// let difficulty;
-
-		// const getDifficulty = () => {
-		// 	switch(this.state.difficulty) {
-		// 		case 'easy':
-		// 			user[attackArr[index]][1] = true;
-		// 			break;
-		// 		case 'medium':
-		// 			if
-		// 			break;
-		// 		case 'hard':
-		// 			//code;
-		// 			break;
-		// 		default:
-		// 			//code
-		// 	}
-		// }
 
 		////if attack hits ship, allow for another turn
 		if (user[attackArr[index]][0] === true) {
@@ -173,6 +156,7 @@ export class App extends Component {
 	};
 
 	setDifficulty = () => {
+		//easy is random, medium = every 3rd attack guarentee, hard every 2nd attack guarantee
 		const computerAttacks = new Array(20).fill(null);
 		if (this.state.difficulty === 'medium') {
 			for (let i = 0; i < this.state.userShips.length; i++) {
@@ -182,14 +166,17 @@ export class App extends Component {
 			}
 		}
 
-		//working here
-		while (computerAttacks.includes(null)) {
-			let index = computerAttacks.indexOf(null);
-			let num = generateRandomNum(100);
-			if (!computerAttacks.includes(num)) {
-				computerAttacks[index] = num;
+		//fills in the remainder of computer attacks with random
+		for (let i = 0; i < computerAttacks.length; i++) {
+			if (computerAttacks[i] === null) {
+				while (true) {
+					let num = generateRandomNum(100);
+					if (computerAttacks.indexOf(num) < 0) {
+						computerAttacks[i] = num;
+						break;
+					}
+				}
 			}
-			break;
 		}
 
 		this.setState({

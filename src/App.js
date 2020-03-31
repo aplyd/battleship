@@ -229,6 +229,7 @@ export class App extends Component {
 					</h2>
 					<h2>computer</h2>
 				</div>
+
 				<div id='gameboard-container'>
 					<Gameboard
 						user={this.state.user}

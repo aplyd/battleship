@@ -233,14 +233,19 @@ export function generateComputerBoard() {
 				shipsAndSurrounding.push({
 					index: i,
 					length: shipLengths[i],
-					ship,
-					surrounding,
+					ship: ship.map((s) => getIndex(s)),
+					surrounding: surrounding.map((s) => getIndex(s)),
 				});
 
 				break;
 			}
 		}
 	}
+
+	// for (let i in shipsAndSurrounding) {
+	// 	i.ship.forEach((j) => getIndex(j));
+	// 	i.surrounding.forEach((l) => getIndex(l));
+	// }
 
 	ships.forEach((i) => {
 		board[getIndex(i)][0] = true;

@@ -13,6 +13,7 @@ import {
 	getCoordinate,
 	getIndex,
 	getSurroundingSpaces,
+	shuffleArr,
 } from './gameEngine';
 
 //TODO - refactor with "state machine"
@@ -43,6 +44,7 @@ export class App extends Component {
 
 	componentDidUpdate(prevProps, prevState) {
 		if (prevState.placedShipCounter === 19) {
+			console.log(this.state.userShips);
 			this.setDifficulty();
 			setTimeout(() => {
 				this.setState({
@@ -59,7 +61,8 @@ export class App extends Component {
 
 	getInitialState = () => {
 		const user = generateBoard();
-		const computer = generateComputerBoard();
+		const [computer, computerShips] = generateComputerBoard();
+		console.log(computerShips);
 		const computerAttacks = generateComputerAttacks();
 		this.setState({ user, computer, computerAttacks });
 	};
@@ -196,6 +199,8 @@ export class App extends Component {
 				}
 			}
 		}
+
+		shuffleArr(computerAttacks);
 
 		this.setState({
 			computerAttacks,

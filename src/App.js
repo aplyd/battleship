@@ -162,6 +162,7 @@ export class App extends Component {
 		//easy is random, medium = every 3rd attack garuantee, hard every 2nd attack garuantee
 		if (this.state.difficulty === 'easy') {
 			computerAttacks = new Array(100).fill(null);
+			console.log('easy');
 		} else if (this.state.difficulty === 'medium') {
 			computerAttacks = new Array(60).fill(null);
 
@@ -171,6 +172,7 @@ export class App extends Component {
 					userShipsCounter++;
 				}
 			}
+			console.log('medum');
 		} else if (this.state.difficulty === 'hard') {
 			computerAttacks = new Array(40).fill(null);
 
@@ -180,6 +182,7 @@ export class App extends Component {
 					userShipsCounter++;
 				}
 			}
+			console.log('hard');
 		}
 
 		for (let i = 0; i < computerAttacks.length; i++) {
@@ -197,9 +200,6 @@ export class App extends Component {
 		this.setState({
 			computerAttacks,
 		});
-
-		console.log(this.state.userShips);
-		console.log(this.state.computerAttacks);
 	};
 
 	displayTurnKeeper = () => {

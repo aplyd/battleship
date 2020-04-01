@@ -8,7 +8,6 @@ import StartGameModal from './components/StartGameModal';
 import {
 	generateComputerBoard,
 	generateBoard,
-	generateComputerAttacks,
 	generateRandomNum,
 	getCoordinate,
 	getIndex,
@@ -19,7 +18,7 @@ import {
 //TODO - refactor with "state machine"
 //TODO - confirm empty spaces (surrounding areas empty if ship sinks)
 //TODO - handle user ship placement
-//TODO - fix game timing and create announcements for win/lose
+//TODO - create announcements for win/lose
 
 //board spaces have 3 options [false, false, 0]. [0] is ship, [1] is damage, [0] is space touching ship
 export class App extends Component {
@@ -29,9 +28,10 @@ export class App extends Component {
 			isModalOpen: true,
 			username: '',
 			user: null,
+			//FIX - each click is adding to user ships
 			userShips: [],
 			computer: null,
-			computerAttacks: [],
+			computerShips: [],
 			computerAttackCounter: 0,
 			allShipsPlaced: false,
 			placedShipCounter: 0,
@@ -60,7 +60,7 @@ export class App extends Component {
 		const user = generateBoard();
 		const [computer, computerShips] = generateComputerBoard();
 		console.log(computerShips);
-		this.setState({ user, computer });
+		this.setState({ user, computer, computerShips });
 	};
 
 	setUserSettings = (name, difficulty) => {
@@ -200,6 +200,10 @@ export class App extends Component {
 				attack();
 			}
 		}
+	};
+
+	checkForSunkenShip = () => {
+		const computerShips = this.state.computerShips;
 	};
 
 	displayTurnKeeper = () => {

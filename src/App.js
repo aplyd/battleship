@@ -20,7 +20,6 @@ import {
 //TODO - confirm empty spaces (surrounding areas empty if ship sinks)
 //TODO - handle user ship placement
 //TODO - fix game timing and create announcements for win/lose
-//TODO - implement difficulty for computer attacks
 
 //board spaces have 3 options [false, false, 0]. [0] is ship, [1] is damage, [0] is space touching ship
 export class App extends Component {
@@ -44,8 +43,6 @@ export class App extends Component {
 
 	componentDidUpdate(prevProps, prevState) {
 		if (prevState.placedShipCounter === 19) {
-			console.log(this.state.userShips);
-			this.setDifficulty();
 			setTimeout(() => {
 				this.setState({
 					allShipsPlaced: true,
@@ -63,8 +60,7 @@ export class App extends Component {
 		const user = generateBoard();
 		const [computer, computerShips] = generateComputerBoard();
 		console.log(computerShips);
-		const computerAttacks = generateComputerAttacks();
-		this.setState({ user, computer, computerAttacks });
+		this.setState({ user, computer });
 	};
 
 	setUserSettings = (name, difficulty) => {
@@ -204,73 +200,6 @@ export class App extends Component {
 				attack();
 			}
 		}
-
-		////if attack hits ship, allow for another turn
-		// if (user[attackArr[index]][0] === true) {
-		// 	setTimeout(() => {
-		// 		user[attackArr[index]][1] = true;
-		// 		this.setState({
-		// 			user,
-		// 			computerAttackCounter: index + 1,
-		// 		});
-		// 		this.computerAttack();
-		// 	}, 1000);
-		// } else {
-		// 	setTimeout(() => {
-		// 		user[attackArr[index]][1] = true;
-		// 		this.setState({
-		// 			user,
-		// 			computerAttackCounter: index + 1,
-		// 		});
-		// 	}, 1000);
-
-		// 	setTimeout(() => {
-		// 		this.setState({ usersTurn: true });
-		// 	}, 2000);
-		// }
-	};
-
-	setDifficulty = () => {
-		// 	let computerAttacks;
-		// 	let userShipsCounter = 0;
-		// 	//easy is random, medium = every 3rd attack garuantee, hard every 2nd attack garuantee
-		// 	if (this.state.difficulty === 'easy') {
-		// 		computerAttacks = new Array(100).fill(null);
-		// 		console.log('easy');
-		// 	} else if (this.state.difficulty === 'medium') {
-		// 		computerAttacks = new Array(60).fill(null);
-		// 		for (let i = 0; i < computerAttacks.length; i++) {
-		// 			if (i % 3 === 0) {
-		// 				computerAttacks[i] = this.state.userShips[userShipsCounter];
-		// 				userShipsCounter++;
-		// 			}
-		// 		}
-		// 		console.log('medum');
-		// 	} else if (this.state.difficulty === 'hard') {
-		// 		computerAttacks = new Array(40).fill(null);
-		// 		for (let i = 0; i < computerAttacks.length; i++) {
-		// 			if (i % 2 === 0) {
-		// 				computerAttacks[i] = this.state.userShips[userShipsCounter];
-		// 				userShipsCounter++;
-		// 			}
-		// 		}
-		// 		console.log('hard');
-		// 	}
-		// 	for (let i = 0; i < computerAttacks.length; i++) {
-		// 		if (computerAttacks[i] === null) {
-		// 			while (true) {
-		// 				let num = generateRandomNum(100);
-		// 				if (computerAttacks.indexOf(num) < 0) {
-		// 					computerAttacks[i] = num;
-		// 					break;
-		// 				}
-		// 			}
-		// 		}
-		// 	}
-		// 	shuffleArr(computerAttacks);
-		// 	this.setState({
-		// 		computerAttacks,
-		// 	});
 	};
 
 	displayTurnKeeper = () => {

@@ -128,83 +128,149 @@ export class App extends Component {
 	};
 
 	computerAttack = () => {
-		//copy user board because thats what computer is attacking
 		const user = [...this.state.user];
-		const attackArr = this.state.computerAttacks;
-		const index = this.state.computerAttackCounter;
+		let computerAttackCounter = this.state.computerAttackCounter;
+
+		const attack = () => {
+			while (true) {
+				const spaceToAttack = generateRandomNum(user.length);
+
+				//available to attack + ship occupied
+				if (
+					user[spaceToAttack][1] === false &&
+					user[spaceToAttack][0] === true
+				) {
+					setTimeout(() => {
+						user[spaceToAttack][1] = true;
+						this.setState({ user });
+						this.computerAttack();
+					}, 1000);
+					break;
+					//available to attack
+				} else if (user[spaceToAttack][1] === false) {
+					setTimeout(() => {
+						user[spaceToAttack][1] = true;
+						this.setState({ user });
+					}, 1000);
+
+					setTimeout(() => {
+						this.setState({ usersTurn: true });
+					}, 2000);
+					break;
+				}
+			}
+		};
+
+		const cheatAttack = () => {
+			while (true) {
+				let shipToAttack = generateRandomNum(
+					this.state.userShips.length,
+				);
+				if (user[this.state.userShips[shipToAttack]][1] === false) {
+					user[this.state.userShips[shipToAttack]][1] = true;
+					setTimeout(() => {
+						this.setState({ user });
+						this.computerAttack();
+					}, 1000);
+					break;
+				}
+			}
+		};
+
+		const incrementAttackCounter = () => {
+			this.setState({ computerAttackCounter: computerAttackCounter + 1 });
+		};
+
+		//checks for difficulty
+		if (this.state.difficulty === 'easy') {
+			incrementAttackCounter();
+			attack();
+		} else if (this.state.difficulty === 'medium') {
+			//medium - every 3rd attack is a cheat
+			if (this.state.computerAttackCounter % 3 === 0) {
+				incrementAttackCounter();
+				cheatAttack();
+			} else {
+				incrementAttackCounter();
+				attack();
+			}
+		} else if (this.state.difficulty === 'hard') {
+			//hard - every 2nd attack is a cheat
+			if (this.state.computerAttackCounter % 2 === 0) {
+				incrementAttackCounter();
+				cheatAttack();
+			} else {
+				incrementAttackCounter();
+				attack();
+			}
+		}
 
 		////if attack hits ship, allow for another turn
-		if (user[attackArr[index]][0] === true) {
-			setTimeout(() => {
-				user[attackArr[index]][1] = true;
-				this.setState({
-					user,
-					computerAttackCounter: index + 1,
-				});
-				this.computerAttack();
-			}, 1000);
-		} else {
-			setTimeout(() => {
-				user[attackArr[index]][1] = true;
-				this.setState({
-					user,
-					computerAttackCounter: index + 1,
-				});
-			}, 1000);
+		// if (user[attackArr[index]][0] === true) {
+		// 	setTimeout(() => {
+		// 		user[attackArr[index]][1] = true;
+		// 		this.setState({
+		// 			user,
+		// 			computerAttackCounter: index + 1,
+		// 		});
+		// 		this.computerAttack();
+		// 	}, 1000);
+		// } else {
+		// 	setTimeout(() => {
+		// 		user[attackArr[index]][1] = true;
+		// 		this.setState({
+		// 			user,
+		// 			computerAttackCounter: index + 1,
+		// 		});
+		// 	}, 1000);
 
-			setTimeout(() => {
-				this.setState({ usersTurn: true });
-			}, 2000);
-		}
+		// 	setTimeout(() => {
+		// 		this.setState({ usersTurn: true });
+		// 	}, 2000);
+		// }
 	};
 
 	setDifficulty = () => {
-		let computerAttacks;
-		let userShipsCounter = 0;
-
-		//easy is random, medium = every 3rd attack garuantee, hard every 2nd attack garuantee
-		if (this.state.difficulty === 'easy') {
-			computerAttacks = new Array(100).fill(null);
-			console.log('easy');
-		} else if (this.state.difficulty === 'medium') {
-			computerAttacks = new Array(60).fill(null);
-
-			for (let i = 0; i < computerAttacks.length; i++) {
-				if (i % 3 === 0) {
-					computerAttacks[i] = this.state.userShips[userShipsCounter];
-					userShipsCounter++;
-				}
-			}
-			console.log('medum');
-		} else if (this.state.difficulty === 'hard') {
-			computerAttacks = new Array(40).fill(null);
-
-			for (let i = 0; i < computerAttacks.length; i++) {
-				if (i % 2 === 0) {
-					computerAttacks[i] = this.state.userShips[userShipsCounter];
-					userShipsCounter++;
-				}
-			}
-			console.log('hard');
-		}
-
-		for (let i = 0; i < computerAttacks.length; i++) {
-			if (computerAttacks[i] === null) {
-				while (true) {
-					let num = generateRandomNum(100);
-					if (computerAttacks.indexOf(num) < 0) {
-						computerAttacks[i] = num;
-						break;
-					}
-				}
-			}
-		}
-
-		shuffleArr(computerAttacks);
-
-		this.setState({
-			computerAttacks,
-		});
+		// 	let computerAttacks;
+		// 	let userShipsCounter = 0;
+		// 	//easy is random, medium = every 3rd attack garuantee, hard every 2nd attack garuantee
+		// 	if (this.state.difficulty === 'easy') {
+		// 		computerAttacks = new Array(100).fill(null);
+		// 		console.log('easy');
+		// 	} else if (this.state.difficulty === 'medium') {
+		// 		computerAttacks = new Array(60).fill(null);
+		// 		for (let i = 0; i < computerAttacks.length; i++) {
+		// 			if (i % 3 === 0) {
+		// 				computerAttacks[i] = this.state.userShips[userShipsCounter];
+		// 				userShipsCounter++;
+		// 			}
+		// 		}
+		// 		console.log('medum');
+		// 	} else if (this.state.difficulty === 'hard') {
+		// 		computerAttacks = new Array(40).fill(null);
+		// 		for (let i = 0; i < computerAttacks.length; i++) {
+		// 			if (i % 2 === 0) {
+		// 				computerAttacks[i] = this.state.userShips[userShipsCounter];
+		// 				userShipsCounter++;
+		// 			}
+		// 		}
+		// 		console.log('hard');
+		// 	}
+		// 	for (let i = 0; i < computerAttacks.length; i++) {
+		// 		if (computerAttacks[i] === null) {
+		// 			while (true) {
+		// 				let num = generateRandomNum(100);
+		// 				if (computerAttacks.indexOf(num) < 0) {
+		// 					computerAttacks[i] = num;
+		// 					break;
+		// 				}
+		// 			}
+		// 		}
+		// 	}
+		// 	shuffleArr(computerAttacks);
+		// 	this.setState({
+		// 		computerAttacks,
+		// 	});
 	};
 
 	displayTurnKeeper = () => {

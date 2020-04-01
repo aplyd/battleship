@@ -242,11 +242,6 @@ export function generateComputerBoard() {
 		}
 	}
 
-	// for (let i in shipsAndSurrounding) {
-	// 	i.ship.forEach((j) => getIndex(j));
-	// 	i.surrounding.forEach((l) => getIndex(l));
-	// }
-
 	ships.forEach((i) => {
 		board[getIndex(i)][0] = true;
 	});

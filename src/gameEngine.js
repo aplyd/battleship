@@ -231,7 +231,7 @@ export function generateComputerBoard() {
 				ships.push(...ship);
 				//storing surrounding spaces to use for when the ship sinks and need to reveal surrounding
 				shipsAndSurrounding.push({
-					index: i,
+					index: i + 1,
 					length: shipLengths[i],
 					ship: ship.map((s) => getIndex(s)),
 					surrounding: surrounding.map((s) => getIndex(s)),
@@ -251,8 +251,6 @@ export function generateComputerBoard() {
 	ships.forEach((i) => {
 		board[getIndex(i)][0] = true;
 	});
-
-	console.log(board);
 
 	return [board, shipsAndSurrounding];
 }

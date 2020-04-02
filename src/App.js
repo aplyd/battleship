@@ -34,7 +34,8 @@ export class App extends Component {
 			computerShips: [],
 			computerAttackCounter: 0,
 			allShipsPlaced: false,
-			placedShipCounter: 0,
+			//turn back to 0
+			placedShipCounter: 12,
 			usersTurn: false,
 			attackCounter: 0,
 			difficulty: 'easy',
@@ -59,7 +60,6 @@ export class App extends Component {
 	getInitialState = () => {
 		const user = generateBoard();
 		const [computer, computerShips] = generateComputerBoard();
-		console.log(computerShips);
 		this.setState({ user, computer, computerShips });
 	};
 
@@ -108,6 +108,10 @@ export class App extends Component {
 				});
 
 				this.setState({ attackCounter: 0 });
+				this.checkForSunkenShip(
+					this.state.computer,
+					computer[index][2],
+				);
 				//if not, dont allow for another turn
 			} else {
 				computer[index][1] = true;
@@ -119,6 +123,10 @@ export class App extends Component {
 					this.setState({ usersTurn: false, attackCounter: 0 });
 					this.computerAttack();
 				}, 1500);
+				this.checkForSunkenShip(
+					this.state.computer,
+					computer[index][2],
+				);
 			}
 		}
 	};
@@ -140,6 +148,10 @@ export class App extends Component {
 						user[spaceToAttack][1] = true;
 						this.setState({ user });
 						this.computerAttack();
+						this.checkForSunkenShip(
+							this.state.user,
+							user[spaceToAttack][2],
+						);
 					}, 1000);
 					break;
 					//available to attack
@@ -147,6 +159,10 @@ export class App extends Component {
 					setTimeout(() => {
 						user[spaceToAttack][1] = true;
 						this.setState({ user });
+						this.checkForSunkenShip(
+							this.state.user,
+							user[spaceToAttack][2],
+						);
 					}, 1000);
 
 					setTimeout(() => {
@@ -168,6 +184,10 @@ export class App extends Component {
 						this.setState({ user });
 						this.computerAttack();
 					}, 1000);
+					this.checkForSunkenShip(
+						this.state.user,
+						user[this.state.userShips[shipToAttack]][2],
+					);
 					break;
 				}
 			}
@@ -202,8 +222,31 @@ export class App extends Component {
 		}
 	};
 
-	checkForSunkenShip = () => {
-		const computerShips = this.state.computerShips;
+	//TODO - fix this garbage
+	checkForSunkenShip = (userOrComputer, shipIndex) => {
+		const board = userOrComputer;
+
+		//filter out if it hit a ship or not
+		if (shipIndex === 0) {
+			console.log('check for sunken ship, didnt hit ship');
+			return;
+		}
+
+		//put all paces related to ship in an array
+		const ship = board.filter((space) => {
+			return space[2] === shipIndex;
+		});
+
+		//check if all spaces have been hit
+		const sunk = ship.every((space) => space[1]);
+
+		if (sunk) {
+			this.state.computerShips[shipIndex - 1].surrounding.forEach((i) => {
+				board[i][1] = true;
+			});
+
+			this.setState({ computer: board });
+		}
 	};
 
 	displayTurnKeeper = () => {

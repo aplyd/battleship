@@ -4,6 +4,7 @@ import './App.css';
 
 import Gameboard from './components/Gameboard';
 import StartGameModal from './components/StartGameModal';
+import ShipModal from './components/ShipModal';
 
 import {
 	generateComputerBoard,
@@ -25,7 +26,8 @@ export class App extends Component {
 	constructor() {
 		super();
 		this.state = {
-			isModalOpen: true,
+			isModalOpen: false,
+			isShipModalOpen: true,
 			username: '',
 			user: null,
 			//FIX - each click is adding to user ships
@@ -34,11 +36,11 @@ export class App extends Component {
 			computerShips: [],
 			computerAttackCounter: 0,
 			allShipsPlaced: false,
-			//turn back to 0
-			placedShipCounter: 12,
+			placedShipCounter: 0,
 			usersTurn: false,
 			attackCounter: 0,
 			difficulty: 'easy',
+			gameOver: false,
 		};
 	}
 
@@ -50,6 +52,10 @@ export class App extends Component {
 					usersTurn: true,
 				});
 			}, 1500);
+		}
+
+		if (this.state.allShipsPlaced) {
+			this.checkForWinner();
 		}
 	}
 
@@ -178,6 +184,7 @@ export class App extends Component {
 				let shipToAttack = generateRandomNum(
 					this.state.userShips.length,
 				);
+				console.log(user[this.state.userShips]);
 				if (user[this.state.userShips[shipToAttack]][1] === false) {
 					user[this.state.userShips[shipToAttack]][1] = true;
 					setTimeout(() => {
@@ -249,6 +256,23 @@ export class App extends Component {
 		}
 	};
 
+	checkForWinner = () => {
+		if (!this.state.gameOver) {
+			const { user, computer } = this.state;
+
+			const userShips = user.filter((space) => space[0] === true);
+			const computerShips = computer.filter((space) => space[0] === true);
+
+			const userWin = userShips.every((ship) => ship[1]);
+			const computerWin = computerShips.every((ship) => ship[1]);
+
+			if (userWin || computerWin) {
+				//announce winner here
+				this.setState({ gameOver: true });
+			}
+		}
+	};
+
 	displayTurnKeeper = () => {
 		if (this.state.allShipsPlaced) {
 			return this.state.usersTurn ? '<' : '>';
@@ -261,6 +285,8 @@ export class App extends Component {
 				{this.state.isModalOpen ? (
 					<StartGameModal setUserSettings={this.setUserSettings} />
 				) : null}
+
+				{this.state.isShipModalOpen ? <ShipModal /> : null}
 
 				<div className='turn-keeper'>
 					<h2>

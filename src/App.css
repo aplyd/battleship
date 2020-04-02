@@ -88,27 +88,25 @@ button {
 .modal-background {
 	height: 100%;
 	width: 100%;
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
-	right: 0;
-	bottom: 0;
 	margin: auto;
 	background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal {
-	position: absolute;
-	left: 25%;
-	right: 25%;
-	top: 25%;
-	bottom: 25%;
+	position: fixed;
+	width: 80%;
+	height: 80%;
+	transform: translate(-50%, -50%);
+	top: 50%;
+	left: 50%;
 	margin: auto;
 	border-radius: 10px;
 	background: black;
 	padding: 20px;
 	color: white;
-	/* align-items: center; */
 }
 
 .modal > h1 {
@@ -137,6 +135,61 @@ button {
 .about-info {
 	position: absolute;
 	bottom: 20px;
+}
+
+/* SHIP MODAL */
+
+.ship-selection-container {
+	display: grid;
+	grid-template-columns: 1fr 3% 1fr 3% 1fr 3% 1fr 3% 1fr;
+	grid-template-rows: 1fr 3% 1fr 3% 1fr 3% 1fr;
+	width: 60vw;
+	height: 60vw;
+}
+
+.ship {
+	background: white;
+}
+
+.ship-v4 {
+	grid-row: 1 / 8;
+	grid-column: 1;
+	background: red;
+}
+
+.ship-v3 {
+	grid-row: 3 / 8;
+	grid-column: 3;
+	background: green;
+}
+
+.ship-v2 {
+	grid-row: 5 / 8;
+	grid-column: 5;
+	background: yellow;
+}
+
+.ship-h4 {
+	grid-row: 1;
+	grid-column: 3 / 10;
+	background: grey;
+}
+
+.ship-h3 {
+	grid-row: 3;
+	grid-column: 5 / 10;
+	background-color: turquoise;
+}
+
+.ship-h2 {
+	grid-row: 5;
+	grid-column: 7 / 10;
+	background: pink;
+}
+
+.ship-h1 {
+	grid-row: 7;
+	grid-column: 9 / 10;
 }
 
 /* TURN KEEPER */

@@ -41,6 +41,7 @@ export class App extends Component {
 			attackCounter: 0,
 			difficulty: 'easy',
 			gameOver: false,
+			shipToPlace: [],
 		};
 	}
 
@@ -85,21 +86,35 @@ export class App extends Component {
 		const user = [...this.state.user];
 		const userShips = this.state.userShips;
 
-		userShips.push(index);
+		//check if space clicked is valid
+		//not occupied
+		//length fits on board
+		//surrounding spaces arent occupied
 
-		//placing the ships until all 20 are placed
-		if (this.state.placedShipCounter <= 19 && user[index][0] === false) {
-			user[index][0] = true;
-			this.setState({
-				user,
-				placedShipCounter: this.state.placedShipCounter + 1,
-				userShips,
-			});
+		//store ship placement in userShips
+
+		//place ship on board and reopen ship select modal (10 ships)
+
+		if (this.state.allShipsPlaced) {
+			// userShips.push(index)
+			//placing the ships until all 20 are placed
+			if (
+				this.state.placedShipCounter <= 19 &&
+				user[index][0] === false
+			) {
+				user[index][0] = true;
+				this.setState({
+					user,
+					placedShipCounter: this.state.placedShipCounter + 1,
+					// userShips,
+				});
+			}
 		}
 	};
 
 	handleShipPlacement = (length, direction) => {
-		// console.log(length, direction);
+		this.setState({ isShipModalOpen: false });
+		this.setState({ shipToPlace: [length, direction] });
 	};
 
 	handleAttack = (e, index) => {

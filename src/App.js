@@ -127,13 +127,19 @@ export class App extends Component {
 					surrounding,
 				});
 
-				this.setState({ userShips });
+				ship.forEach((space) => {
+					user[getIndex(space)][0] = true;
+				});
+
+				this.setState({
+					userShips,
+					user,
+					userPlacedShipCounter: this.state.userPlacedShipCounter + 1,
+					isShipModalOpen: true,
+				});
 			}
 
-			//store ship placement in userShips
-
-			//place ship on board and reopen ship select modal (10 ships)
-
+			//TODO - move ship length state up to app level component
 			//placing the ships until all 20 are placed
 		} else {
 			// all ships placed so click = attack

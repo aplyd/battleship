@@ -4,7 +4,7 @@ export class ShipModal extends Component {
 	render() {
 		return (
 			<div className='modal-background'>
-				<div className='modal'>
+				<div className='modal ship-select-modal'>
 					<h2>select a ship to place:</h2>
 					<div className='ship-selection-container'>
 						<div className='ship ship-v4'></div>

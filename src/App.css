@@ -162,43 +162,42 @@ button {
 }
 
 .ship {
-	background: white;
+	background: grey;
+}
+
+.ship:hover {
+	background: black;
+	cursor: pointer;
 }
 
 .ship-v4 {
 	grid-row: 2 / 9;
 	grid-column: 1;
-	background: red;
 }
 
 .ship-v3 {
 	grid-row: 4 / 9;
 	grid-column: 3;
-	background: green;
 }
 
 .ship-v2 {
 	grid-row: 6 / 9;
 	grid-column: 5;
-	background: yellow;
 }
 
 .ship-h4 {
 	grid-row: 2;
 	grid-column: 3 / 10;
-	background: grey;
 }
 
 .ship-h3 {
 	grid-row: 4;
 	grid-column: 5 / 10;
-	background-color: turquoise;
 }
 
 .ship-h2 {
 	grid-row: 6;
 	grid-column: 7 / 10;
-	background: pink;
 }
 
 .ship-h1 {

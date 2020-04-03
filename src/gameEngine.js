@@ -150,6 +150,7 @@ export const getNextSpace = (coordinates, direction = 'down') => {
 					: (nextSpace = letter + nextNum);
 				break;
 			case 'down':
+			case 'vertical':
 				nextNum = num + 1;
 				nextNum > 10
 					? (nextSpace = null)
@@ -162,6 +163,7 @@ export const getNextSpace = (coordinates, direction = 'down') => {
 					: (nextSpace = nextLetter + num);
 				break;
 			case 'right':
+			case 'horizontal':
 				nextLetter = letters[letterIndex + 1];
 				nextLetter === 'x'
 					? (nextSpace = null)

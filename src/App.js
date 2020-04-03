@@ -32,6 +32,7 @@ export class App extends Component {
 			user: null,
 			//FIX - each click is adding to user ships
 			userShips: [],
+			userPlacedShipCounter: 0,
 			computer: null,
 			computerShips: [],
 			computerAttackCounter: 0,
@@ -85,39 +86,57 @@ export class App extends Component {
 	handleSpaceClick = (e, index) => {
 		const user = [...this.state.user];
 		const userShips = this.state.userShips;
+		let [length, direction] = this.state.shipToPlace;
+		let ship = [];
+		let surrounding = [];
+		const available = user[index][0] === false;
 
 		const isValidPlacement = () => {
-			let [length, direction] = this.state.shipToPlace;
-			direction === 'vertical'
-				? (direction = 'down')
-				: (direction = 'right');
-
-			let ship = [];
 			ship.unshift(getCoordinate(index));
 
 			for (let i = 0; i < length - 1; i++) {
-				ship.unshift(getNextSpace(ship[0]));
+				ship.unshift(getNextSpace(ship[0], direction));
 			}
 
-			console.log(ship);
+			const totalSurrounding = ship.map((space) => {
+				return getSurroundingSpaces(space);
+			});
+
+			//remove duplicates
+			surrounding = [...new Set(totalSurrounding.flat())];
+
+			let surroundingSpacesAvailable = surrounding.every((space) => {
+				return !user[getIndex(space)][0];
+			});
+
+			if (!ship.includes(null) && surroundingSpacesAvailable) {
+				return true;
+			} else {
+				return false;
+			}
 		};
 
-		const available = user[index][0] === false;
-		if (available) {
-			isValidPlacement();
-		}
+		//handle ship placement
+		if (!this.state.allShipsPlaced) {
+			if (available && isValidPlacement()) {
+				//first add ship/surrounding to state
+				userShips.push({
+					index: this.state.userPlacedShipCounter + 1,
+					length: Number(length),
+					ship,
+					surrounding,
+				});
 
-		//check if space clicked is valid
-		//not occupied
-		//length fits on board
-		//surrounding spaces arent occupied
+				this.setState({ userShips });
+			}
 
-		//store ship placement in userShips
+			//store ship placement in userShips
 
-		//place ship on board and reopen ship select modal (10 ships)
+			//place ship on board and reopen ship select modal (10 ships)
 
-		if (this.state.allShipsPlaced) {
 			//placing the ships until all 20 are placed
+		} else {
+			// all ships placed so click = attack
 			if (
 				this.state.placedShipCounter <= 19 &&
 				user[index][0] === false
@@ -128,8 +147,6 @@ export class App extends Component {
 					placedShipCounter: this.state.placedShipCounter + 1,
 				});
 			}
-		} else {
-			//palce ship stuff here
 		}
 	};
 

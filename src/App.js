@@ -13,7 +13,7 @@ import {
 	getCoordinate,
 	getIndex,
 	getSurroundingSpaces,
-	shuffleArr,
+	getNextSpace,
 } from './gameEngine';
 
 //TODO - refactor with "state machine"
@@ -86,6 +86,27 @@ export class App extends Component {
 		const user = [...this.state.user];
 		const userShips = this.state.userShips;
 
+		const isValidPlacement = () => {
+			let [length, direction] = this.state.shipToPlace;
+			direction === 'vertical'
+				? (direction = 'down')
+				: (direction = 'right');
+
+			let ship = [];
+			ship.unshift(getCoordinate(index));
+
+			for (let i = 0; i < length - 1; i++) {
+				ship.unshift(getNextSpace(ship[0]));
+			}
+
+			console.log(ship);
+		};
+
+		const available = user[index][0] === false;
+		if (available) {
+			isValidPlacement();
+		}
+
 		//check if space clicked is valid
 		//not occupied
 		//length fits on board
@@ -96,7 +117,6 @@ export class App extends Component {
 		//place ship on board and reopen ship select modal (10 ships)
 
 		if (this.state.allShipsPlaced) {
-			// userShips.push(index)
 			//placing the ships until all 20 are placed
 			if (
 				this.state.placedShipCounter <= 19 &&
@@ -106,9 +126,10 @@ export class App extends Component {
 				this.setState({
 					user,
 					placedShipCounter: this.state.placedShipCounter + 1,
-					// userShips,
 				});
 			}
+		} else {
+			//palce ship stuff here
 		}
 	};
 

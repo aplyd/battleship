@@ -166,7 +166,7 @@ button {
 }
 
 .ship:hover {
-	background: black;
+	background: lightgray;
 	cursor: pointer;
 }
 

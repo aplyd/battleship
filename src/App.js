@@ -98,6 +98,10 @@ export class App extends Component {
 		}
 	};
 
+	handleShipPlacement = (length, direction) => {
+		// console.log(length, direction);
+	};
+
 	handleAttack = (e, index) => {
 		//using attack counter to ensure only 1 attack per turn
 		this.setState({ attackCounter: this.state.attackCounter + 1 });
@@ -286,7 +290,9 @@ export class App extends Component {
 					<StartGameModal setUserSettings={this.setUserSettings} />
 				) : null}
 
-				{this.state.isShipModalOpen ? <ShipModal /> : null}
+				{this.state.isShipModalOpen ? (
+					<ShipModal handleShipPlacement={this.handleShipPlacement} />
+				) : null}
 
 				<div className='turn-keeper'>
 					<h2>

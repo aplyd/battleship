@@ -29,7 +29,6 @@ export class ComputerSpace extends Component {
 				onClick={(e) => this.props.handleAttack(e, this.props.index)}
 				style={this.setStyle()}
 				role='presentation'
-				// style={ this.props.ship ? {backgroundColor: 'black'} : {backgroundColor: 'grey'} }
 			>
 				<p>
 					{this.props.index}{' '}

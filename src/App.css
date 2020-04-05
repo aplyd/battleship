@@ -84,6 +84,11 @@ button {
 	border: 1px dotted grey;
 }
 
+#gameboard > div:hover {
+	background-color: #acd0de;
+	cursor: pointer;
+}
+
 .space {
 	background-color: lightgray;
 }

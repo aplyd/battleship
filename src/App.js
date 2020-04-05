@@ -43,6 +43,10 @@ export class App extends Component {
 			difficulty: 'easy',
 			gameOver: false,
 			shipToPlace: [],
+			length4: 1,
+			length3: 2,
+			length2: 3,
+			length1: 4,
 		};
 	}
 
@@ -92,6 +96,10 @@ export class App extends Component {
 		const available = user[index][0] === false;
 
 		const isValidPlacement = () => {
+			if (this.state.shipToPlace.length === 0) {
+				return;
+			}
+
 			ship.unshift(getCoordinate(index));
 
 			for (let i = 0; i < length - 1; i++) {
@@ -118,7 +126,8 @@ export class App extends Component {
 
 		//handle ship placement
 		if (!this.state.allShipsPlaced) {
-			if (available && isValidPlacement()) {
+			if (available && isValidPlacement() && this.state.shipToPlace) {
+				console.log(this.state.shipToPlace);
 				//first add ship/surrounding to state
 				userShips.push({
 					index: this.state.userPlacedShipCounter + 1,
@@ -135,8 +144,12 @@ export class App extends Component {
 					userShips,
 					user,
 					userPlacedShipCounter: this.state.userPlacedShipCounter + 1,
-					isShipModalOpen: true,
+					shipToPlace: [],
 				});
+
+				setTimeout(() => {
+					this.setState({ isShipModalOpen: true });
+				}, 500);
 			}
 
 			//TODO - move ship length state up to app level component
@@ -157,6 +170,22 @@ export class App extends Component {
 	};
 
 	handleShipPlacement = (length, direction) => {
+		switch (Number(length)) {
+			case 4:
+				this.setState({ length4: this.state.length4 - 1 });
+				break;
+			case 3:
+				this.setState({ length3: this.state.length3 - 1 });
+				break;
+			case 2:
+				this.setState({ length2: this.state.length2 - 1 });
+				break;
+			case 1:
+				this.setState({ length1: this.state.length1 - 1 });
+				break;
+			default:
+				console.log('error in handleShipPlacement switch');
+		}
 		this.setState({ isShipModalOpen: false });
 		this.setState({ shipToPlace: [length, direction] });
 	};
@@ -350,7 +379,13 @@ export class App extends Component {
 				) : null}
 
 				{this.state.isShipModalOpen ? (
-					<ShipModal handleShipPlacement={this.handleShipPlacement} />
+					<ShipModal
+						handleShipPlacement={this.handleShipPlacement}
+						length1={this.state.length1}
+						length2={this.state.length2}
+						length3={this.state.length3}
+						length4={this.state.length4}
+					/>
 				) : null}
 
 				<div className='turn-keeper'>

@@ -26,8 +26,8 @@ export class App extends Component {
 	constructor() {
 		super();
 		this.state = {
-			isModalOpen: false,
-			isShipModalOpen: true,
+			isModalOpen: true,
+			isShipModalOpen: false,
 			username: '',
 			user: null,
 			//FIX - each click is adding to user ships
@@ -79,13 +79,14 @@ export class App extends Component {
 		this.setState({
 			username: name,
 			difficulty,
+			isModalOpen: false,
+			isShipModalOpen: true,
 		});
-		this.toggleStartGameModal();
 	};
 
-	toggleStartGameModal = () => {
-		this.setState({ isModalOpen: !this.state.isModalOpen });
-	};
+	// toggleStartGameModal = () => {
+	// 	this.setState({ isModalOpen: !this.state.isModalOpen });
+	// };
 
 	handleSpaceClick = (e, index) => {
 		const user = [...this.state.user];
@@ -147,24 +148,19 @@ export class App extends Component {
 					shipToPlace: [],
 				});
 
-				setTimeout(() => {
-					this.setState({ isShipModalOpen: true });
-				}, 500);
-			}
-
-			//TODO - move ship length state up to app level component
-			//placing the ships until all 20 are placed
-		} else {
-			// all ships placed so click = attack
-			if (
-				this.state.placedShipCounter <= 19 &&
-				user[index][0] === false
-			) {
-				user[index][0] = true;
-				this.setState({
-					user,
-					placedShipCounter: this.state.placedShipCounter + 1,
-				});
+				//reopen ship modal if theres still ships to be placed
+				if (userShips.length === 10) {
+					setTimeout(() => {
+						this.setState({
+							allShipsPlaced: true,
+							usersTurn: true,
+						});
+					}, 500);
+				} else {
+					setTimeout(() => {
+						this.setState({ isShipModalOpen: true });
+					}, 300);
+				}
 			}
 		}
 	};
@@ -233,6 +229,10 @@ export class App extends Component {
 		const user = [...this.state.user];
 		let computerAttackCounter = this.state.computerAttackCounter;
 
+		const userShipCoordinates = this.state.userShips.map((i) => i.ship);
+		const flatCoordinates = [].concat(...userShipCoordinates);
+		const userShipIndexes = flatCoordinates.map((coord) => getIndex(coord));
+
 		const attack = () => {
 			while (true) {
 				const spaceToAttack = generateRandomNum(user.length);
@@ -273,19 +273,19 @@ export class App extends Component {
 
 		const cheatAttack = () => {
 			while (true) {
-				let shipToAttack = generateRandomNum(
-					this.state.userShips.length,
-				);
-				console.log(user[this.state.userShips]);
-				if (user[this.state.userShips[shipToAttack]][1] === false) {
-					user[this.state.userShips[shipToAttack]][1] = true;
+				let shipToAttack = generateRandomNum(userShipIndexes.length);
+				console.log('ship to attack ', shipToAttack);
+				console.log('userShipINdesx ', userShipIndexes);
+				console.log(user[userShipIndexes[shipToAttack]][1]);
+				if (user[userShipIndexes[shipToAttack]][1] === false) {
+					user[userShipIndexes[shipToAttack]][1] = true;
 					setTimeout(() => {
 						this.setState({ user });
 						this.computerAttack();
 					}, 1000);
 					this.checkForSunkenShip(
 						this.state.user,
-						user[this.state.userShips[shipToAttack]][2],
+						user[userShipIndexes[shipToAttack]][2],
 					);
 					break;
 				}

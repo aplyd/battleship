@@ -28,7 +28,7 @@ import EndGameModal from './components/EndGameModal';
 export class App extends Component {
 	constructor() {
 		super();
-		this.state = {
+		this.initialState = {
 			isModalOpen: true,
 			isShipModalOpen: false,
 			username: '',
@@ -50,6 +50,7 @@ export class App extends Component {
 			gameOver: false,
 			winner: null,
 		};
+		this.state = {};
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -63,6 +64,7 @@ export class App extends Component {
 	};
 
 	getInitialState = () => {
+		this.setState(this.initialState);
 		const user = generateBoard();
 		const [computer, computerShips] = generateComputerBoard();
 		this.setState({ user, computer, computerShips });
@@ -245,10 +247,10 @@ export class App extends Component {
 							user[spaceToAttack][2],
 							'computer',
 						);
-					}, 500);
+					}, 750);
 					setTimeout(() => {
 						this.computerAttack();
-					}, 500);
+					}, 750);
 					break;
 					//available to attack
 				} else if (user[spaceToAttack][1] === false) {
@@ -262,11 +264,11 @@ export class App extends Component {
 							user[spaceToAttack][2],
 							'computer',
 						);
-					}, 500);
+					}, 750);
 
 					setTimeout(() => {
 						this.setState({ usersTurn: true });
-					}, 1000);
+					}, 1500);
 					break;
 				}
 			}
@@ -285,10 +287,10 @@ export class App extends Component {
 							user[userShipIndexes[shipToAttack]][2],
 							'computer',
 						);
-					}, 500);
+					}, 750);
 					setTimeout(() => {
 						this.computerAttack();
-					}, 500);
+					}, 750);
 					break;
 				}
 			}
@@ -362,13 +364,23 @@ export class App extends Component {
 			const userShips = user.filter((space) => space[0] === true);
 			const computerShips = computer.filter((space) => space[0] === true);
 
-			const userWin = userShips.every((ship) => ship[1]);
-			const computerWin = computerShips.every((ship) => ship[1]);
+			const computerWin = userShips.every((ship) => ship[1]);
+			const userWin = computerShips.every((ship) => ship[1]);
 
 			if (userWin) {
-				this.setState({ gameOver: true, winner: 'user' });
+				this.setState({
+					gameOver: true,
+					winner: 'user',
+					isShipModalOpen: false,
+					isModalOpen: false,
+				});
 			} else if (computerWin) {
-				this.setState({ gameOver: true, winner: 'computer' });
+				this.setState({
+					gameOver: true,
+					winner: 'computer',
+					isShipModalOpen: false,
+					isModalOpen: false,
+				});
 			}
 		}
 	};
@@ -384,12 +396,19 @@ export class App extends Component {
 	};
 
 	newGame = () => {
-		console.log('new');
+		this.getInitialState();
 	};
 
 	render() {
 		return (
 			<React.Fragment>
+				{this.state.gameOver ? (
+					<EndGameModal
+						winner={this.state.winner}
+						newGame={this.newGame}
+					/>
+				) : null}
+
 				{this.state.isModalOpen ? (
 					<StartGameModal setUserSettings={this.setUserSettings} />
 				) : null}
@@ -401,13 +420,6 @@ export class App extends Component {
 						length2={this.state.length2}
 						length3={this.state.length3}
 						length4={this.state.length4}
-					/>
-				) : null}
-
-				{this.state.gameOver ? (
-					<EndGameModal
-						winner={this.state.winner}
-						newGame={this.newGame}
 					/>
 				) : null}
 
@@ -435,7 +447,7 @@ export class App extends Component {
 					<Controls
 						usersTurn={this.state.usersTurn}
 						flipBoard={this.flipBoard}
-						newGam={this.newGame}
+						newGame={this.newGame}
 					/>
 				) : null}
 			</React.Fragment>

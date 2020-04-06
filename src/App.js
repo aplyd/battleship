@@ -47,16 +47,7 @@ export class App extends Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		if (prevState.placedShipCounter === 19) {
-			setTimeout(() => {
-				this.setState({
-					allShipsPlaced: true,
-					usersTurn: true,
-				});
-			}, 1500);
-		}
-
-		if (this.state.allShipsPlaced) {
+		if (prevState.allShipsPlaced) {
 			this.checkForWinner();
 		}
 	}
@@ -239,25 +230,31 @@ export class App extends Component {
 					setTimeout(() => {
 						user[spaceToAttack][1] = true;
 						this.setState({ user });
-						this.computerAttack();
+					}, 500);
+					setTimeout(() => {
 						this.checkForSunkenShip(
 							this.state.user,
 							user[spaceToAttack][2],
 							'computer',
 						);
-					}, 1000);
+					}, 500);
+					setTimeout(() => {
+						this.computerAttack();
+					}, 500);
 					break;
 					//available to attack
 				} else if (user[spaceToAttack][1] === false) {
 					setTimeout(() => {
 						user[spaceToAttack][1] = true;
 						this.setState({ user });
+					}, 500);
+					setTimeout(() => {
 						this.checkForSunkenShip(
 							this.state.user,
 							user[spaceToAttack][2],
 							'computer',
 						);
-					}, 1000);
+					}, 500);
 
 					setTimeout(() => {
 						this.setState({ usersTurn: true });

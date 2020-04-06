@@ -41,6 +41,10 @@ img {
 /* ^^^^ CSS RESET ^^^^ */
 /* vvvvv GLOBAL vvvvvv*/
 
+html {
+	background-image: linear-gradient(120deg, #3e84a2 0%, #c6e6f5 100%);
+}
+
 #root {
 	width: 100%;
 	height: 100%;
@@ -68,6 +72,7 @@ button {
 	display: grid;
 	grid-template-columns: 1fr 600px 1fr;
 	grid-template-rows: 1fr 600px 1fr;
+	color: rgba(0, 0, 0, 0.8);
 }
 
 #gameboard {
@@ -76,11 +81,12 @@ button {
 	display: grid;
 	grid-template-columns: repeat(10, 1fr);
 	grid-auto-rows: minmax(40px, 1fr);
+	color: rgba(0, 0, 0, 0.8);
 }
 
 #gameboard > div {
 	height: 100%;
-	background-color: #7aa2b2;
+	color: rgba(0, 0, 0, 0.8);
 	border: 1px dotted grey;
 }
 
@@ -126,6 +132,7 @@ button {
 .modal > form > button {
 	display: block;
 	width: 100%;
+	cursor: pointer;
 }
 
 .modal > form > input[type='text'] {
@@ -136,6 +143,16 @@ button {
 .difficulty {
 	padding: 40px 20px 40px 0;
 	display: inline-block;
+	cursor: default;
+}
+
+.difficulty-select > label {
+	cursor: pointer;
+	padding: 0 8px;
+}
+
+.difficulty-select > label > input[type='radio'] {
+	display: none;
 }
 
 .difficulty-select {

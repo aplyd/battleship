@@ -18,6 +18,9 @@ import {
 
 //TODO - refactor with "state machine"
 //TODO - create announcements for win/lose
+//TODO - option to remove ship
+//TODO - random ship placement for user
+//TODO - new game button
 
 //board spaces have 3 options [false, false, 0]. [0] is ship, [1] is damage, [0] is space touching ship
 export class App extends Component {
@@ -258,7 +261,7 @@ export class App extends Component {
 
 					setTimeout(() => {
 						this.setState({ usersTurn: true });
-					}, 2000);
+					}, 1000);
 					break;
 				}
 			}

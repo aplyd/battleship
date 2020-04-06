@@ -5,7 +5,7 @@ export class StartGameModal extends Component {
 		super();
 		this.state = {
 			name: '',
-			difficulty: 'easy',
+			difficulty: 'medium',
 		};
 	}
 
@@ -35,15 +35,23 @@ export class StartGameModal extends Component {
 							type='text'
 							value={this.state.name}
 							onChange={this.handleChange}
-							placeholder='Name'
+							placeholder='name (optional)'
 							autoFocus
 						></input>
-						<p className='difficulty'>difficulty:</p>
+						<p className='difficulty'>
+							<b>difficulty</b>
+						</p>
 						<div
 							onChange={this.handleDifficultyChange}
 							className='difficulty-select'
 						>
-							<label>
+							<label
+								style={
+									this.state.difficulty === 'easy'
+										? selected
+										: null
+								}
+							>
 								easy
 								<input
 									type='radio'
@@ -52,7 +60,13 @@ export class StartGameModal extends Component {
 								/>
 								<span className='difficulty-radio'></span>
 							</label>
-							<label>
+							<label
+								style={
+									this.state.difficulty === 'medium'
+										? selected
+										: null
+								}
+							>
 								medium
 								<input
 									type='radio'
@@ -61,7 +75,13 @@ export class StartGameModal extends Component {
 								/>
 								<span className='difficulty-radio'></span>
 							</label>
-							<label>
+							<label
+								style={
+									this.state.difficulty === 'hard'
+										? selected
+										: null
+								}
+							>
 								hard
 								<input
 									type='radio'
@@ -97,5 +117,11 @@ export class StartGameModal extends Component {
 		);
 	}
 }
+
+const selected = {
+	backgroundColor: 'white',
+	color: 'black',
+	borderRadius: '5px',
+};
 
 export default StartGameModal;

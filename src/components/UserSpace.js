@@ -17,7 +17,7 @@ export class UserSpace extends Component {
 			styles = Object.assign(styles, damage);
 		} else if (this.props.damage) {
 			const damage = {
-				backgroundColor: '#4B6672',
+				backgroundColor: 'rgba(0, 0, 0, .2)',
 			};
 			styles = Object.assign(styles, damage);
 		} else if (this.props.ship) {
@@ -40,12 +40,12 @@ export class UserSpace extends Component {
 				role='presentation'
 				// style={ this.props.ship ? {backgroundColor: 'black'} : {backgroundColor: 'grey'} }
 			>
-				<p>
+				{/* <p>
 					{this.props.index}{' '}
 					<b style={{ color: 'grey' }}>
 						{getCoordinate(this.props.index)}
 					</b>
-				</p>
+				</p> */}
 			</div>
 		);
 	}

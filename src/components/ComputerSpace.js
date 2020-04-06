@@ -16,7 +16,7 @@ export class ComputerSpace extends Component {
 			styles = Object.assign(styles, damage);
 		} else if (this.props.damage) {
 			const damage = {
-				backgroundColor: '#4B6672',
+				backgroundColor: 'rgba(0, 0, 0, .2)',
 			};
 			styles = Object.assign(styles, damage);
 		}
@@ -30,12 +30,12 @@ export class ComputerSpace extends Component {
 				style={this.setStyle()}
 				role='presentation'
 			>
-				<p>
+				{/* <p>
 					{this.props.index}{' '}
 					<b style={{ color: 'white' }}>
 						{getCoordinate(this.props.index)}
 					</b>
-				</p>
+				</p> */}
 			</div>
 		);
 	}

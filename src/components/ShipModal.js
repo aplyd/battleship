@@ -85,7 +85,7 @@ export class ShipModal extends Component {
 }
 
 const disabled = {
-	backgroundColor: 'black',
+	backgroundColor: 'rgb(162, 162, 162)',
 	pointerEvents: 'none',
 	outline: 'none',
 };

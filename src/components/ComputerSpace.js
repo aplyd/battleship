@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { getCoordinate } from '../gameEngine';
 
 export class ComputerSpace extends Component {
 	//game begin:

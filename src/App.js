@@ -5,6 +5,7 @@ import './App.css';
 import Gameboard from './components/Gameboard';
 import StartGameModal from './components/StartGameModal';
 import ShipModal from './components/ShipModal';
+import Controls from './components/Controls';
 
 import {
 	generateComputerBoard,
@@ -374,6 +375,10 @@ export class App extends Component {
 		}
 	};
 
+	flipBoard = () => {
+		this.setState({ usersTurn: !this.state.usersTurn });
+	};
+
 	render() {
 		return (
 			<React.Fragment>
@@ -410,6 +415,13 @@ export class App extends Component {
 						handleAttack={this.handleAttack}
 					/>
 				</div>
+
+				{this.state.allShipsPlaced ? (
+					<Controls
+						usersTurn={this.state.usersTurn}
+						flipBoard={this.flipBoard}
+					/>
+				) : null}
 			</React.Fragment>
 		);
 	}

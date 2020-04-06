@@ -3,9 +3,11 @@
 }
 
 html,
-body {
+body,
+#root {
 	margin: 0;
 	padding: 0;
+	height: 150vh;
 }
 
 body,
@@ -42,12 +44,7 @@ img {
 /* vvvvv GLOBAL vvvvvv*/
 
 html {
-	background-image: linear-gradient(120deg, #3e84a2 0%, #c6e6f5 100%);
-}
-
-#root {
-	width: 100%;
-	height: 100%;
+	background-image: linear-gradient(120deg, #437b93 0%, #d1edfa 100%);
 }
 
 p {
@@ -64,6 +61,7 @@ button {
 	border-radius: 4px;
 	background-color: grey;
 	color: white;
+	outline: none;
 }
 
 /* GAMEBOARD */
@@ -87,7 +85,7 @@ button {
 #gameboard > div {
 	height: 100%;
 	color: rgba(0, 0, 0, 0.8);
-	border: 1px dotted grey;
+	border: 1px dotted white;
 }
 
 #gameboard > div:hover {
@@ -120,7 +118,7 @@ button {
 	left: 50%;
 	margin: auto;
 	border-radius: 10px;
-	background: black;
+	background: rgb(162, 162, 162);
 	padding: 20px;
 	color: white;
 }
@@ -231,7 +229,7 @@ button {
 
 .turn-keeper {
 	width: 600px;
-	height: 120px;
+	height: 160px;
 	margin: 0 auto;
 	display: flex;
 	justify-content: space-between;
@@ -240,6 +238,9 @@ button {
 
 .turn-keeper > h2 {
 	display: inline;
+	color: white;
+	font-size: 32px;
+	padding-bottom: 8px;
 }
 
 /* NEWS TICKER */
@@ -268,4 +269,22 @@ button {
 	100% {
 		transform: translate(-100%, 0);
 	}
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (max-width: 480px) {
+	body,
+	html,
+	#root {
+		width: 200vw;
+		height: 200vh;
+	}
+
+	.turn-keeper > h2 {
+		font-size: 2.8rem;
+	}
+}
+
+/* Custom, iPhone Retina */
+@media only screen and (max-width: 320px) {
 }

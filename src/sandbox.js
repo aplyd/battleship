@@ -40,23 +40,23 @@ console.log(easyArr);
 
 /////////////////
 
-// let userShipsCounter = 0;
-// let computerAttacks = [];
+let userShipsCounter = 0;
+let computerAttacks = [];
 
-// for (let i = 0; i < 60; i++) {
-// 	if (i % 3 === 0 && userShips[userShipsCounter]) {
-// 		computerAttacks.push(userShips[userShipsCounter]);
-// 		userShipsCounter++;
-// 	} else {
-// 		while (true) {
-// 			let num = generateRandomNum(100);
-// 			if (computerAttacks.indexOf(num) < 0) {
-// 				computerAttacks.push(num);
-// 				break;
-// 			}
-// 		}
-// 	}
-// }
+for (let i = 0; i < 60; i++) {
+	if (i % 3 === 0 && userShips[userShipsCounter]) {
+		computerAttacks.push(userShips[userShipsCounter]);
+		userShipsCounter++;
+	} else {
+		while (true) {
+			let num = generateRandomNum(100);
+			if (computerAttacks.indexOf(num) < 0) {
+				computerAttacks.push(num);
+				break;
+			}
+		}
+	}
+}
 
 // console.log(computerAttacks);
 

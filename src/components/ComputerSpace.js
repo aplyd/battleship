@@ -28,14 +28,7 @@ export class ComputerSpace extends Component {
 				onClick={(e) => this.props.handleAttack(e, this.props.index)}
 				style={this.setStyle()}
 				role='presentation'
-			>
-				{/* <p>
-					{this.props.index}{' '}
-					<b style={{ color: 'white' }}>
-						{getCoordinate(this.props.index)}
-					</b>
-				</p> */}
-			</div>
+			></div>
 		);
 	}
 }

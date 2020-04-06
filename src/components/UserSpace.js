@@ -38,15 +38,7 @@ export class UserSpace extends Component {
 				}
 				style={this.setStyle()}
 				role='presentation'
-				// style={ this.props.ship ? {backgroundColor: 'black'} : {backgroundColor: 'grey'} }
-			>
-				{/* <p>
-					{this.props.index}{' '}
-					<b style={{ color: 'grey' }}>
-						{getCoordinate(this.props.index)}
-					</b>
-				</p> */}
-			</div>
+			></div>
 		);
 	}
 }

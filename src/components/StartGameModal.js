@@ -91,8 +91,7 @@ export class StartGameModal extends Component {
 								<span className='difficulty-radio'></span>
 							</label>
 						</div>
-						{/* <p>ship color:</p>
-						<p>dark mode:</p>*/}
+
 						<button type='submit'>play</button>
 					</form>
 					<p className='about-info'>

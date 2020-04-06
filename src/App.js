@@ -19,10 +19,8 @@ import {
 import EndGameModal from './components/EndGameModal';
 
 //TODO - refactor with "state machine"
-//TODO - create announcements for win/lose
 //TODO - option to remove ship
 //TODO - random ship placement for user
-//TODO - new game button
 
 //board spaces have 3 options [false, false, 0]. [0] is ship, [1] is damage, [0] is space touching ship
 export class App extends Component {

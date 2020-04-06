@@ -6,19 +6,18 @@ export class NewsTicker extends Component {
 			<div>
 				<p className='news-ticker'>
 					<span>
-						This is text - This is text - This is text - This is
-						text - This is text - This is text - This is text - This
-						is text - This is text - This is text - This is text -
-						This is text -&nbsp;
+						click a space to attack - click a space to attack -
+						click a space to attack - click a space to attack -
+						click a space to attack - click a space to attack -
+						click a space to attack - click a space to attack -
 					</span>
 				</p>
 
 				<p className='news-ticker news-ticker2'>
 					<span>
-						This is text - This is text - This is text - This is
-						text - This is text - This is text - This is text - This
-						is text - This is text - This is text - This is text -
-						This is text -&nbsp;
+						click a space to attack - click a space to attack -
+						click a space to attack - click a space to attack -
+						click a space to attack - click a space to attack -
 					</span>
 				</p>
 			</div>

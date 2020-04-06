@@ -16,6 +16,7 @@ import {
 	getSurroundingSpaces,
 	getNextSpace,
 } from './gameEngine';
+import EndGameModal from './components/EndGameModal';
 
 //TODO - refactor with "state machine"
 //TODO - create announcements for win/lose
@@ -41,17 +42,18 @@ export class App extends Component {
 			usersTurn: false,
 			attackCounter: 0,
 			difficulty: 'easy',
-			gameOver: false,
 			shipToPlace: [],
 			length4: 1,
 			length3: 2,
 			length2: 3,
 			length1: 4,
+			gameOver: false,
+			winner: null,
 		};
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		if (prevState.allShipsPlaced) {
+		if (prevState.allShipsPlaced && !prevState.gameOver) {
 			this.checkForWinner();
 		}
 	}
@@ -115,7 +117,6 @@ export class App extends Component {
 		//handle ship placement
 		if (!this.state.allShipsPlaced) {
 			if (available && isValidPlacement() && this.state.shipToPlace) {
-				console.log(this.state.shipToPlace);
 				//first add ship/surrounding to state
 				userShips.push({
 					index: userShips.length + 1,
@@ -174,12 +175,15 @@ export class App extends Component {
 	};
 
 	handleAttack = (e, index) => {
+		//copy computer board because thats what were attacking
+		const computer = [...this.state.computer];
 		//using attack counter to ensure only 1 attack per turn
 		this.setState({ attackCounter: this.state.attackCounter + 1 });
-		if (this.state.attackCounter < 1) {
-			//copy computer board because thats what were attacking
-			const computer = [...this.state.computer];
-
+		if (
+			this.state.attackCounter < 1 &&
+			!this.state.gameOver &&
+			computer[index][1] === false
+		) {
 			//computer[index][0] = occupied by ship, [1] = has been damaged
 			//if attack hits ship, allow for another turn
 			if (computer[index][0] === true) {
@@ -234,7 +238,7 @@ export class App extends Component {
 					setTimeout(() => {
 						user[spaceToAttack][1] = true;
 						this.setState({ user });
-					}, 500);
+					}, 750);
 					setTimeout(() => {
 						this.checkForSunkenShip(
 							this.state.user,
@@ -251,7 +255,7 @@ export class App extends Component {
 					setTimeout(() => {
 						user[spaceToAttack][1] = true;
 						this.setState({ user });
-					}, 500);
+					}, 750);
 					setTimeout(() => {
 						this.checkForSunkenShip(
 							this.state.user,
@@ -295,10 +299,10 @@ export class App extends Component {
 		};
 
 		//checks for difficulty
-		if (this.state.difficulty === 'easy') {
+		if (this.state.difficulty === 'easy' && !this.state.gameOver) {
 			incrementAttackCounter();
 			attack();
-		} else if (this.state.difficulty === 'medium') {
+		} else if (this.state.difficulty === 'medium' && !this.state.gameOver) {
 			//medium - every 3rd attack is a cheat
 			if (this.state.computerAttackCounter % 3 === 0) {
 				incrementAttackCounter();
@@ -307,7 +311,7 @@ export class App extends Component {
 				incrementAttackCounter();
 				attack();
 			}
-		} else if (this.state.difficulty === 'hard') {
+		} else if (this.state.difficulty === 'hard' && !this.state.gameOver) {
 			//hard - every 2nd attack is a cheat
 			if (this.state.computerAttackCounter % 2 === 0) {
 				incrementAttackCounter();
@@ -323,7 +327,6 @@ export class App extends Component {
 	checkForSunkenShip = (board, shipIndex, userOrComputer) => {
 		//filter out if it hit a ship or not
 		if (shipIndex === 0) {
-			console.log('check for sunken ship, didnt hit ship');
 			return;
 		}
 
@@ -362,9 +365,10 @@ export class App extends Component {
 			const userWin = userShips.every((ship) => ship[1]);
 			const computerWin = computerShips.every((ship) => ship[1]);
 
-			if (userWin || computerWin) {
-				//announce winner here
-				this.setState({ gameOver: true });
+			if (userWin) {
+				this.setState({ gameOver: true, winner: 'user' });
+			} else if (computerWin) {
+				this.setState({ gameOver: true, winner: 'computer' });
 			}
 		}
 	};
@@ -377,6 +381,10 @@ export class App extends Component {
 
 	flipBoard = () => {
 		this.setState({ usersTurn: !this.state.usersTurn });
+	};
+
+	newGame = () => {
+		console.log('new');
 	};
 
 	render() {
@@ -393,6 +401,13 @@ export class App extends Component {
 						length2={this.state.length2}
 						length3={this.state.length3}
 						length4={this.state.length4}
+					/>
+				) : null}
+
+				{this.state.gameOver ? (
+					<EndGameModal
+						winner={this.state.winner}
+						newGame={this.newGame}
 					/>
 				) : null}
 
@@ -420,6 +435,7 @@ export class App extends Component {
 					<Controls
 						usersTurn={this.state.usersTurn}
 						flipBoard={this.flipBoard}
+						newGam={this.newGame}
 					/>
 				) : null}
 			</React.Fragment>

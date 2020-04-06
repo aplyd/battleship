@@ -17,8 +17,6 @@ import {
 } from './gameEngine';
 
 //TODO - refactor with "state machine"
-//TODO - confirm empty spaces (surrounding areas empty if ship sinks)
-//TODO - handle user ship placement
 //TODO - create announcements for win/lose
 
 //board spaces have 3 options [false, false, 0]. [0] is ship, [1] is damage, [0] is space touching ship
@@ -30,9 +28,7 @@ export class App extends Component {
 			isShipModalOpen: false,
 			username: '',
 			user: null,
-			//FIX - each click is adding to user ships
 			userShips: [],
-			userPlacedShipCounter: 0,
 			computer: null,
 			computerShips: [],
 			computerAttackCounter: 0,
@@ -84,10 +80,6 @@ export class App extends Component {
 		});
 	};
 
-	// toggleStartGameModal = () => {
-	// 	this.setState({ isModalOpen: !this.state.isModalOpen });
-	// };
-
 	handleSpaceClick = (e, index) => {
 		const user = [...this.state.user];
 		const userShips = this.state.userShips;
@@ -131,7 +123,7 @@ export class App extends Component {
 				console.log(this.state.shipToPlace);
 				//first add ship/surrounding to state
 				userShips.push({
-					index: this.state.userPlacedShipCounter + 1,
+					index: userShips.length + 1,
 					length: Number(length),
 					ship,
 					surrounding,
@@ -139,12 +131,12 @@ export class App extends Component {
 
 				ship.forEach((space) => {
 					user[getIndex(space)][0] = true;
+					user[getIndex(space)][2] = userShips.length;
 				});
 
 				this.setState({
 					userShips,
 					user,
-					userPlacedShipCounter: this.state.userPlacedShipCounter + 1,
 					shipToPlace: [],
 				});
 
@@ -205,6 +197,7 @@ export class App extends Component {
 				this.checkForSunkenShip(
 					this.state.computer,
 					computer[index][2],
+					'user',
 				);
 				//if not, dont allow for another turn
 			} else {
@@ -220,6 +213,7 @@ export class App extends Component {
 				this.checkForSunkenShip(
 					this.state.computer,
 					computer[index][2],
+					'user',
 				);
 			}
 		}
@@ -249,6 +243,7 @@ export class App extends Component {
 						this.checkForSunkenShip(
 							this.state.user,
 							user[spaceToAttack][2],
+							'computer',
 						);
 					}, 1000);
 					break;
@@ -260,6 +255,7 @@ export class App extends Component {
 						this.checkForSunkenShip(
 							this.state.user,
 							user[spaceToAttack][2],
+							'computer',
 						);
 					}, 1000);
 
@@ -274,19 +270,20 @@ export class App extends Component {
 		const cheatAttack = () => {
 			while (true) {
 				let shipToAttack = generateRandomNum(userShipIndexes.length);
-				console.log('ship to attack ', shipToAttack);
-				console.log('userShipINdesx ', userShipIndexes);
-				console.log(user[userShipIndexes[shipToAttack]][1]);
+
 				if (user[userShipIndexes[shipToAttack]][1] === false) {
 					user[userShipIndexes[shipToAttack]][1] = true;
 					setTimeout(() => {
 						this.setState({ user });
+						this.checkForSunkenShip(
+							this.state.user,
+							user[userShipIndexes[shipToAttack]][2],
+							'computer',
+						);
+					}, 500);
+					setTimeout(() => {
 						this.computerAttack();
-					}, 1000);
-					this.checkForSunkenShip(
-						this.state.user,
-						user[userShipIndexes[shipToAttack]][2],
-					);
+					}, 500);
 					break;
 				}
 			}
@@ -322,9 +319,7 @@ export class App extends Component {
 	};
 
 	//TODO - fix this garbage
-	checkForSunkenShip = (userOrComputer, shipIndex) => {
-		const board = userOrComputer;
-
+	checkForSunkenShip = (board, shipIndex, userOrComputer) => {
 		//filter out if it hit a ship or not
 		if (shipIndex === 0) {
 			console.log('check for sunken ship, didnt hit ship');
@@ -339,12 +334,20 @@ export class App extends Component {
 		//check if all spaces have been hit
 		const sunk = ship.every((space) => space[1]);
 
-		if (sunk) {
+		//user attack
+		if (sunk && userOrComputer === 'user') {
 			this.state.computerShips[shipIndex - 1].surrounding.forEach((i) => {
 				board[i][1] = true;
 			});
 
 			this.setState({ computer: board });
+			//computer attack
+		} else if (sunk && userOrComputer === 'computer') {
+			this.state.userShips[shipIndex - 1].surrounding.forEach((i) => {
+				board[getIndex(i)][1] = true;
+			});
+
+			this.setState({ user: board });
 		}
 	};
 

@@ -67,12 +67,6 @@ button {
 	font-size: 16px;
 }
 
-button:hover {
-	background-color: rgb(255, 255, 255);
-	border: solid rgb(255, 255, 255);
-	color: rgb(101, 101, 101);
-}
-
 /* GAMEBOARD */
 
 #gameboard-container {
@@ -95,11 +89,6 @@ button:hover {
 	height: 100%;
 	color: rgba(0, 0, 0, 0.8);
 	border: 1px dotted white;
-}
-
-#gameboard > div:hover {
-	background-color: #acd0de;
-	cursor: pointer;
 }
 
 .space {
@@ -192,11 +181,6 @@ button:hover {
 
 .ship {
 	background: grey;
-}
-
-.ship:hover {
-	background: lightgray;
-	cursor: pointer;
 }
 
 .ship-v4 {
@@ -316,6 +300,24 @@ button:hover {
 	button {
 		font-size: 1.8rem;
 		padding: 14px 22px;
+	}
+}
+
+@media (hover: hover) {
+	button:hover {
+		background-color: rgb(255, 255, 255);
+		border: solid rgb(255, 255, 255);
+		color: rgb(101, 101, 101);
+	}
+
+	#gameboard > div:hover {
+		background-color: #acd0de;
+		cursor: pointer;
+	}
+
+	.ship:hover {
+		background: lightgray;
+		cursor: pointer;
 	}
 }
 

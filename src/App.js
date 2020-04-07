@@ -22,8 +22,6 @@ import EndGameModal from './components/EndGameModal';
 //TODO - option to remove ship
 //TODO - random ship placement for user
 
-//FIX - in between when computer attacks and board is flipped, if you click, it breaks the game
-
 //board spaces have 3 options [false, false, 0]. [0] is ship, [1] is damage, [0] is space touching ship
 export class App extends Component {
 	constructor() {
@@ -175,13 +173,13 @@ export class App extends Component {
 	handleAttack = (e, index) => {
 		//copy computer board because thats what were attacking
 		const computer = [...this.state.computer];
-		//using attack counter to ensure only 1 attack per turn
-		this.setState({ attackCounter: this.state.attackCounter + 1 });
 		if (
 			this.state.attackCounter < 1 &&
 			!this.state.gameOver &&
 			computer[index][1] === false
 		) {
+			//using attack counter to ensure only 1 attack per turn
+			this.setState({ attackCounter: this.state.attackCounter + 1 });
 			//computer[index][0] = occupied by ship, [1] = has been damaged
 			//if attack hits ship, allow for another turn
 			if (computer[index][0] === true) {

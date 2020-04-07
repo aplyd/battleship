@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { getCoordinate } from '../gameEngine';
 
 export class UserSpace extends Component {
 	//place ships: click = gray

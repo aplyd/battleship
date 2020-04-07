@@ -6,6 +6,7 @@ export class StartGameModal extends Component {
 		this.state = {
 			name: '',
 			difficulty: 'medium',
+			placement: 'random',
 		};
 	}
 
@@ -17,10 +18,18 @@ export class StartGameModal extends Component {
 		this.setState({ difficulty: event.target.value });
 	};
 
+	handleShipPlacementOption = (event) => {
+		this.setState({ placement: event.target.value });
+	};
+
 	handleSubmit = (event) => {
 		event.preventDefault();
 
-		this.props.setUserSettings(this.state.name, this.state.difficulty);
+		this.props.setUserSettings(
+			this.state.name,
+			this.state.difficulty,
+			this.state.placement,
+		);
 
 		this.setState({ name: '' });
 	};
@@ -90,6 +99,47 @@ export class StartGameModal extends Component {
 								/>
 								<span className='difficulty-radio'></span>
 							</label>
+						</div>
+
+						<div>
+							<p className='placement'>
+								<b>ship placement</b>
+							</p>
+							<div
+								onChange={this.handleShipPlacementOption}
+								className='placement-select'
+							>
+								<label
+									style={
+										this.state.placement === 'custom'
+											? selected
+											: null
+									}
+								>
+									custom
+									<input
+										type='radio'
+										name='placement-select'
+										value='custom'
+									/>
+									<span className='placement-select'></span>
+								</label>
+								<label
+									style={
+										this.state.placement === 'random'
+											? selected
+											: null
+									}
+								>
+									random
+									<input
+										type='radio'
+										name='placement-select'
+										value='random'
+									/>
+									<span className='placement-select'></span>
+								</label>
+							</div>
 						</div>
 
 						<button type='submit'>play</button>

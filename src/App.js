@@ -40,6 +40,7 @@ export class App extends Component {
 			usersTurn: false,
 			attackCounter: 0,
 			difficulty: 'easy',
+			placementOption: null,
 			shipToPlace: [],
 			length4: 1,
 			length3: 2,
@@ -64,13 +65,37 @@ export class App extends Component {
 		this.setState({ user, computer, computerShips });
 	};
 
-	setUserSettings = (name, difficulty) => {
-		this.setState({
-			username: name,
-			difficulty,
-			isModalOpen: false,
-			isShipModalOpen: true,
-		});
+	setUserSettings = (name, difficulty, placementOption) => {
+		if (placementOption === 'custom') {
+			this.setState({
+				username: name,
+				difficulty,
+				isModalOpen: false,
+				isShipModalOpen: true,
+			});
+		} else if (placementOption === 'random') {
+			const [user, userShips] = generateComputerBoard();
+
+			userShips.forEach((i) => {
+				i.ship.forEach((ship) => (ship = getIndex(ship)));
+				i.surrounding.forEach((sur) => (sur = getIndex(sur)));
+			});
+
+			this.setState({
+				userShips,
+				user,
+				username: name,
+				difficulty,
+				isModalOpen: false,
+			});
+
+			setTimeout(() => {
+				this.setState({
+					allShipsPlaced: true,
+					usersTurn: true,
+				});
+			}, 1000);
+		}
 	};
 
 	handleSpaceClick = (e, index) => {
@@ -113,7 +138,6 @@ export class App extends Component {
 		//handle ship placement
 		if (!this.state.allShipsPlaced) {
 			if (available && isValidPlacement() && this.state.shipToPlace) {
-				//first add ship/surrounding to state
 				userShips.push({
 					index: userShips.length + 1,
 					length: Number(length),
@@ -221,8 +245,8 @@ export class App extends Component {
 		let computerAttackCounter = this.state.computerAttackCounter;
 
 		const userShipCoordinates = this.state.userShips.map((i) => i.ship);
-		const flatCoordinates = [].concat(...userShipCoordinates);
-		const userShipIndexes = flatCoordinates.map((coord) => getIndex(coord));
+		const userShipIndexes = [].concat(...userShipCoordinates);
+		// const userShipIndexes = flatCoordinates.map((coord) => getIndex(coord));
 
 		const attack = () => {
 			while (true) {
@@ -349,7 +373,7 @@ export class App extends Component {
 			//computer attack
 		} else if (sunk && userOrComputer === 'computer') {
 			this.state.userShips[shipIndex - 1].surrounding.forEach((i) => {
-				board[getIndex(i)][1] = true;
+				board[i][1] = true;
 			});
 
 			this.setState({ user: board });

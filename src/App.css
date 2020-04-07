@@ -67,6 +67,10 @@ button {
 	font-size: 16px;
 }
 
+a {
+	color: rgb(99, 99, 99);
+}
+
 /* GAMEBOARD */
 
 #gameboard-container {
@@ -142,17 +146,26 @@ button {
 	cursor: default;
 }
 
-.difficulty-select > label {
+.difficulty-select > label,
+.placement-select > label {
 	cursor: pointer;
 	padding: 0 8px;
 }
 
-.difficulty-select > label > input[type='radio'] {
+.difficulty-select > label > input[type='radio'],
+.placement-select > label > input[type='radio'] {
 	display: none;
 }
 
-.difficulty-select {
+.difficulty-select,
+.placement-select {
 	display: inline-block;
+}
+
+.placement {
+	padding: 0 20px 40px 0;
+	display: inline-block;
+	cursor: default;
 }
 
 .about-info {

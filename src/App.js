@@ -23,7 +23,6 @@ import EndGameModal from './components/EndGameModal';
 //TODO - random ship placement for user
 
 //FIX - in between when computer attacks and board is flipped, if you click, it breaks the game
-//FIX - when placing ships after new game begins, shipModal gets stuck open
 
 //board spaces have 3 options [false, false, 0]. [0] is ship, [1] is damage, [0] is space touching ship
 export class App extends Component {
@@ -60,6 +59,8 @@ export class App extends Component {
 
 	getInitialState = () => {
 		this.setState(this.initialState);
+		//this is needed bc setState is shallow merge and doesn't delete userShips nested objects
+		this.setState({ userShips: [] });
 		const user = generateBoard();
 		const [computer, computerShips] = generateComputerBoard();
 		this.setState({ user, computer, computerShips });

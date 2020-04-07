@@ -22,6 +22,9 @@ import EndGameModal from './components/EndGameModal';
 //TODO - option to remove ship
 //TODO - random ship placement for user
 
+//FIX - in between when computer attacks and board is flipped, if you click, it breaks the game
+//FIX - when placing ships after new game begins, shipModal gets stuck open
+
 //board spaces have 3 options [false, false, 0]. [0] is ship, [1] is damage, [0] is space touching ship
 export class App extends Component {
 	constructor() {
@@ -49,12 +52,6 @@ export class App extends Component {
 			winner: null,
 		};
 		this.state = {};
-	}
-
-	componentDidUpdate(prevProps, prevState) {
-		if (prevState.allShipsPlaced && !prevState.gameOver) {
-			this.checkForWinner();
-		}
 	}
 
 	UNSAFE_componentWillMount = () => {
@@ -198,6 +195,7 @@ export class App extends Component {
 					computer[index][2],
 					'user',
 				);
+				this.checkForWinner();
 				//if not, dont allow for another turn
 			} else {
 				computer[index][1] = true;
@@ -206,6 +204,7 @@ export class App extends Component {
 				});
 
 				setTimeout(() => {
+					this.checkForWinner();
 					this.setState({ usersTurn: false, attackCounter: 0 });
 					this.computerAttack();
 				}, 1500);
@@ -245,6 +244,7 @@ export class App extends Component {
 							user[spaceToAttack][2],
 							'computer',
 						);
+						this.checkForWinner();
 					}, 750);
 					setTimeout(() => {
 						this.computerAttack();
@@ -262,6 +262,7 @@ export class App extends Component {
 							user[spaceToAttack][2],
 							'computer',
 						);
+						this.checkForWinner();
 					}, 750);
 
 					setTimeout(() => {
@@ -285,6 +286,7 @@ export class App extends Component {
 							user[userShipIndexes[shipToAttack]][2],
 							'computer',
 						);
+						this.checkForWinner();
 					}, 750);
 					setTimeout(() => {
 						this.computerAttack();

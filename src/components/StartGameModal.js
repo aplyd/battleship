@@ -119,8 +119,9 @@ export class StartGameModal extends Component {
 
 const selected = {
 	backgroundColor: 'white',
-	color: 'black',
+	color: '#808080',
 	borderRadius: '5px',
+	fontWeight: 'bold',
 };
 
 export default StartGameModal;

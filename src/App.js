@@ -329,7 +329,7 @@ export class App extends Component {
 			attack();
 		} else if (this.state.difficulty === 'medium' && !this.state.gameOver) {
 			//medium - every 3rd attack is a cheat
-			if (this.state.computerAttackCounter % 3 === 0) {
+			if (this.state.computerAttackCounter % 4 === 0) {
 				incrementAttackCounter();
 				cheatAttack();
 			} else {

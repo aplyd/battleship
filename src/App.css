@@ -7,7 +7,7 @@ body,
 #root {
 	margin: 0;
 	padding: 0;
-	height: 110vh;
+	height: 100vh;
 }
 
 body,
@@ -235,7 +235,7 @@ a {
 
 .turn-keeper {
 	width: 600px;
-	height: 100px;
+	height: 60px;
 	margin: 0 auto;
 	display: flex;
 	justify-content: space-between;
@@ -254,11 +254,12 @@ a {
 .controls-container {
 	width: 600px;
 	margin: 0 auto;
-	padding-top: 24px;
+	padding-top: 8px;
+	display: flex;
+	justify-content: space-between;
 }
 
 .controls-container > button {
-	margin-right: 8px;
 	background-color: rgb(172, 172, 172);
 	border: rgb(172, 172, 172);
 }
@@ -267,6 +268,19 @@ a {
 	background-color: white;
 	border: white;
 	color: rgb(101, 101, 101);
+}
+
+.about-control-info {
+	display: inline-block;
+}
+
+.about-control-info > p {
+	color: white;
+	display: inline;
+}
+
+.about-control-info > p > a {
+	color: white;
 }
 
 /* end game modal */
@@ -321,6 +335,7 @@ a {
 		background-color: rgb(255, 255, 255);
 		border: solid rgb(255, 255, 255);
 		color: rgb(101, 101, 101);
+		cursor: pointer;
 	}
 
 	#gameboard > div:hover {
@@ -330,6 +345,11 @@ a {
 
 	.ship:hover {
 		background: lightgray;
+		cursor: pointer;
+	}
+
+	.about-control-info > p > a:hover {
+		color: #acacac;
 		cursor: pointer;
 	}
 }

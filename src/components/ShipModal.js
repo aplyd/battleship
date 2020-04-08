@@ -1,6 +1,16 @@
 import React, { Component } from 'react';
 
 export class ShipModal extends Component {
+	componentDidMount = () => {
+		if (this.props.isShipModalOpen) {
+			document.body.style.overflow = 'hidden';
+		}
+	};
+
+	componentWillUnmount = () => {
+		document.body.style.overflow = 'unset';
+	};
+
 	handleClick = (event) => {
 		const { shipLength, shipDirection } = event.target.dataset;
 

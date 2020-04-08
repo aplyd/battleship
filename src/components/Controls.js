@@ -9,8 +9,29 @@ export class Controls extends Component {
 					type='button'
 					onClick={this.props.flipBoard}
 				>
-					{this.props.usersTurn ? 'view my ships' : 'view opponent'}
+					{this.props.usersTurn ? 'view ships' : 'view opponent'}
 				</button>
+
+				<div className='about-control-info'>
+					<p>
+						made by austin ftacnik //{' '}
+						<a
+							href='https://github.com/aplyd/battleship'
+							target='_blank'
+							rel='noopener noreferrer'
+						>
+							github
+						</a>{' '}
+						//{' '}
+						<a
+							href='https://twitter.com/austinftacnik'
+							target='_blank'
+							rel='noopener noreferrer'
+						>
+							twitter
+						</a>
+					</p>
+				</div>
 
 				<button
 					className='new-game-btn'

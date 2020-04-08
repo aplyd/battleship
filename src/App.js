@@ -230,7 +230,7 @@ export class App extends Component {
 					this.checkForWinner();
 					this.setState({ usersTurn: false, attackCounter: 0 });
 					this.computerAttack();
-				}, 1500);
+				}, 1000);
 				this.checkForSunkenShip(
 					this.state.computer,
 					computer[index][2],
@@ -429,16 +429,21 @@ export class App extends Component {
 					<EndGameModal
 						winner={this.state.winner}
 						newGame={this.newGame}
+						gameOver={this.state.gameOver}
 					/>
 				) : null}
 
 				{this.state.isModalOpen ? (
-					<StartGameModal setUserSettings={this.setUserSettings} />
+					<StartGameModal
+						setUserSettings={this.setUserSettings}
+						isModalOpen={this.state.isModalOpen}
+					/>
 				) : null}
 
 				{this.state.isShipModalOpen ? (
 					<ShipModal
 						handleShipPlacement={this.handleShipPlacement}
+						isShipModalOpen={this.state.isShipModalOpen}
 						length1={this.state.length1}
 						length2={this.state.length2}
 						length3={this.state.length3}
@@ -447,9 +452,7 @@ export class App extends Component {
 				) : null}
 
 				<div className='turn-keeper'>
-					<h2>
-						{this.state.username ? this.state.username : 'player'}
-					</h2>
+					<h2>{this.state.username ? this.state.username : 'you'}</h2>
 					<h2 className='turn-keeper-arrow'>
 						{this.displayTurnKeeper()}
 					</h2>

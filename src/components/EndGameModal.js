@@ -1,6 +1,16 @@
 import React, { Component } from 'react';
 
 export class EndGameModal extends Component {
+	componentDidMount = () => {
+		if (this.props.gameOver) {
+			document.body.style.overflow = 'hidden';
+		}
+	};
+
+	componentWillUnmount = () => {
+		document.body.style.overflow = 'unset';
+	};
+
 	render() {
 		return (
 			<div className='modal-background end-game-modal'>

@@ -10,6 +10,16 @@ export class StartGameModal extends Component {
 		};
 	}
 
+	componentDidMount = () => {
+		if (this.props.isModalOpen) {
+			document.body.style.overflow = 'hidden';
+		}
+	};
+
+	componentWillUnmount = () => {
+		document.body.style.overflow = 'unset';
+	};
+
 	handleChange = (event) => {
 		this.setState({ name: event.target.value });
 	};

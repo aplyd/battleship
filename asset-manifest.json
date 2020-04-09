@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/battleship/static/css/main.984dd0a1.chunk.css",
+    "main.css": "/battleship/static/css/main.97c62110.chunk.css",
     "main.js": "/battleship/static/js/main.ba08ccb3.chunk.js",
     "main.js.map": "/battleship/static/js/main.ba08ccb3.chunk.js.map",
     "runtime-main.js": "/battleship/static/js/runtime-main.56b15e06.js",
@@ -8,15 +8,15 @@
     "static/js/2.3014d8f5.chunk.js": "/battleship/static/js/2.3014d8f5.chunk.js",
     "static/js/2.3014d8f5.chunk.js.map": "/battleship/static/js/2.3014d8f5.chunk.js.map",
     "index.html": "/battleship/index.html",
-    "precache-manifest.f21b170d4f3df00c4f33ca8725a062a9.js": "/battleship/precache-manifest.f21b170d4f3df00c4f33ca8725a062a9.js",
+    "precache-manifest.4af56bd6e90db48adb4beea4b745a015.js": "/battleship/precache-manifest.4af56bd6e90db48adb4beea4b745a015.js",
     "service-worker.js": "/battleship/service-worker.js",
-    "static/css/main.984dd0a1.chunk.css.map": "/battleship/static/css/main.984dd0a1.chunk.css.map",
+    "static/css/main.97c62110.chunk.css.map": "/battleship/static/css/main.97c62110.chunk.css.map",
     "static/js/2.3014d8f5.chunk.js.LICENSE.txt": "/battleship/static/js/2.3014d8f5.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.56b15e06.js",
     "static/js/2.3014d8f5.chunk.js",
-    "static/css/main.984dd0a1.chunk.css",
+    "static/css/main.97c62110.chunk.css",
     "static/js/main.ba08ccb3.chunk.js"
   ]
 }

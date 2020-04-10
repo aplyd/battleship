@@ -22,7 +22,6 @@ export class Controls extends Component {
 						>
 							github
 						</a>{' '}
-						//{' '}
 						<a
 							href='https://twitter.com/austinftacnik'
 							target='_blank'

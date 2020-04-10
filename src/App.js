@@ -20,7 +20,7 @@ import EndGameModal from './components/EndGameModal';
 
 //TODO - refactor with "state machine"
 //TODO - option to remove ship
-//TODO - random ship placement for user
+//TODO - computer attack is "smart" (when attack hits, chooses a surrounding space)
 
 //board spaces have 3 options [false, false, 0]. [0] is ship, [1] is damage, [0] is space touching ship
 export class App extends Component {
@@ -72,13 +72,14 @@ export class App extends Component {
 				difficulty,
 				isModalOpen: false,
 				isShipModalOpen: true,
+				placementOption,
 			});
 		} else if (placementOption === 'random') {
 			const [user, userShips] = generateComputerBoard();
 
-			userShips.forEach((i) => {
-				i.ship.forEach((ship) => (ship = getIndex(ship)));
-				i.surrounding.forEach((sur) => (sur = getIndex(sur)));
+			userShips.forEach((obj) => {
+				obj.ship = obj.ship.map((i) => getCoordinate(i));
+				obj.surrounding = obj.surrounding.map((j) => getCoordinate(j));
 			});
 
 			this.setState({
@@ -87,6 +88,7 @@ export class App extends Component {
 				username: name,
 				difficulty,
 				isModalOpen: false,
+				placementOption,
 			});
 
 			setTimeout(() => {
@@ -245,8 +247,8 @@ export class App extends Component {
 		let computerAttackCounter = this.state.computerAttackCounter;
 
 		const userShipCoordinates = this.state.userShips.map((i) => i.ship);
-		const userShipIndexes = [].concat(...userShipCoordinates);
-		// const userShipIndexes = flatCoordinates.map((coord) => getIndex(coord));
+		const flatCoordinates = [].concat(...userShipCoordinates);
+		const userShipIndexes = flatCoordinates.map((coord) => getIndex(coord));
 
 		const attack = () => {
 			while (true) {
@@ -299,6 +301,8 @@ export class App extends Component {
 		const cheatAttack = () => {
 			while (true) {
 				let shipToAttack = generateRandomNum(userShipIndexes.length);
+
+				console.log(userShipIndexes);
 
 				if (user[userShipIndexes[shipToAttack]][1] === false) {
 					user[userShipIndexes[shipToAttack]][1] = true;

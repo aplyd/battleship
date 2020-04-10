@@ -302,8 +302,6 @@ export class App extends Component {
 			while (true) {
 				let shipToAttack = generateRandomNum(userShipIndexes.length);
 
-				console.log(userShipIndexes);
-
 				if (user[userShipIndexes[shipToAttack]][1] === false) {
 					user[userShipIndexes[shipToAttack]][1] = true;
 					setTimeout(() => {
@@ -377,7 +375,7 @@ export class App extends Component {
 			//computer attack
 		} else if (sunk && userOrComputer === 'computer') {
 			this.state.userShips[shipIndex - 1].surrounding.forEach((i) => {
-				board[i][1] = true;
+				board[getIndex(i)][1] = true;
 			});
 
 			this.setState({ user: board });

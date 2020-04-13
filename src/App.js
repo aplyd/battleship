@@ -199,6 +199,7 @@ export class App extends Component {
 	handleAttack = (e, index) => {
 		//copy computer board because thats what were attacking
 		const computer = [...this.state.computer];
+
 		if (
 			this.state.attackCounter < 1 &&
 			!this.state.gameOver &&
@@ -242,10 +243,26 @@ export class App extends Component {
 		}
 	};
 
+	getSurroundingAttack = (coord) => {
+		const user = this.state.user;
+
+		let surrArr = getSurroundingSpaces(coord);
+
+		let upDownLeftRight = [surrArr[1], surrArr[3], surrArr[4], surrArr[6]];
+
+		while (true) {
+			const num = generateRandomNum(4);
+
+			if (user[getIndex(upDownLeftRight)[num]][1] === false) {
+				console.log(upDownLeftRight[num]);
+				break;
+			}
+		}
+	};
+
 	computerAttack = () => {
 		const user = [...this.state.user];
 		let computerAttackCounter = this.state.computerAttackCounter;
-
 		const userShipCoordinates = this.state.userShips.map((i) => i.ship);
 		const flatCoordinates = [].concat(...userShipCoordinates);
 		const userShipIndexes = flatCoordinates.map((coord) => getIndex(coord));
@@ -271,6 +288,11 @@ export class App extends Component {
 						);
 						this.checkForWinner();
 					}, 750);
+
+					this.getSurroundingAttack(
+						getCoordinate(user[spaceToAttack]),
+					);
+
 					setTimeout(() => {
 						this.computerAttack();
 					}, 750);

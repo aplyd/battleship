@@ -144,7 +144,7 @@ test('surrounding spaces', () => {
 	]);
 });
 
-test.only('f10 surrounding', () => {
+test('f10 surrounding', () => {
 	let coords = getSurroundingSpaces('f10');
 	console.log(coords);
 });
@@ -181,4 +181,12 @@ test('proper spacing', () => {
 
 	expect(willShipsHaveProperSpacing(shouldBeOkay)).toBe(true);
 	expect(willShipsHaveProperSpacing(shouldNotWork)).toBe(false);
+});
+
+test.only('get up/down, left/right', () => {
+	let surrArr = getSurroundingSpaces();
+
+	//[surrArr[1], surrArr[3], surrArr[4], surrArr[6]]
+
+	console.log([surrArr[1], surrArr[3], surrArr[4], surrArr[6]]);
 });

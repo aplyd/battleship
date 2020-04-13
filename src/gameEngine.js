@@ -1,8 +1,3 @@
-//TODO - difficulties
-//easy - computer selection is random
-//normal - computer selection is random, but when it hits a ship, it sinks the rest of the ship
-//hard - computer knows where your ships are, and hits every other time
-
 export function generateBoard() {
 	const arr = [];
 	for (let i = 0; i < 100; i++) {

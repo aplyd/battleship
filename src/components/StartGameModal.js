@@ -55,6 +55,7 @@ export class StartGameModal extends Component {
 							value={this.state.name}
 							onChange={this.handleChange}
 							placeholder='name (optional)'
+							maxLength='20'
 							autoFocus
 						></input>
 						<p className='difficulty'>

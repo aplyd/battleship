@@ -249,15 +249,28 @@ export class App extends Component {
 		let surrArr = getSurroundingSpaces(coord);
 
 		let upDownLeftRight = [surrArr[1], surrArr[3], surrArr[4], surrArr[6]];
+		console.log(coord);
+		console.log(upDownLeftRight);
 
-		while (true) {
-			const num = generateRandomNum(4);
+		upDownLeftRight.sort();
 
-			if (user[getIndex(upDownLeftRight)[num]][1] === false) {
-				console.log(upDownLeftRight[num]);
-				break;
-			}
-		}
+		// for (let i = 0; i < upDownLeftRight.length; i++) {
+		// 	if (user[getIndex(upDownLeftRight[i])][1] === false) {
+		// 		user[getIndex(upDownLeftRight[i])][1] = true;
+
+		// 		this.setState({ user });
+		// 		break;
+		// 	}
+		// }
+
+		// while (true) {
+		// 	const num = generateRandomNum(4);
+
+		// 	if (user[getIndex(upDownLeftRight[num])][1] === false) {
+		// 		console.log(upDownLeftRight[num]);
+		// 		break;
+		// 	}
+		// }
 	};
 
 	computerAttack = () => {
@@ -288,6 +301,8 @@ export class App extends Component {
 						);
 						this.checkForWinner();
 					}, 750);
+
+					console.log('wwww');
 
 					this.getSurroundingAttack(
 						getCoordinate(user[spaceToAttack]),
@@ -335,6 +350,11 @@ export class App extends Component {
 						);
 						this.checkForWinner();
 					}, 750);
+
+					this.getSurroundingAttack(
+						getCoordinate(userShipIndexes[shipToAttack]),
+					);
+
 					setTimeout(() => {
 						this.computerAttack();
 					}, 750);

@@ -113,7 +113,10 @@ a {
 
 .modal {
 	position: fixed;
-	width: 500px;
+	/* width: 500px;
+	height: 500px; */
+	width: 100%;
+	max-width: 500px;
 	height: 500px;
 	transform: translate(-50%, -50%);
 	top: 50%;
@@ -317,6 +320,7 @@ a {
 	.modal {
 		font-size: 2rem;
 		height: 600px;
+		max-width: 90%;
 	}
 
 	.modal > form > input[type='text'] {

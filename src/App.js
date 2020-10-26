@@ -495,6 +495,14 @@ export class App extends Component {
 					/>
 				) : null}
 
+				{!this.state.isModalOpen ? (
+					<div className='page-title'>
+						<h1>battleship</h1>
+					</div>
+				) : (
+					<div className='page-title'></div>
+				)}
+
 				<div className='turn-keeper'>
 					<h2>{this.state.username ? this.state.username : 'you'}</h2>
 					<h2 className='turn-keeper-arrow'>

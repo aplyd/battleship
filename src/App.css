@@ -379,7 +379,7 @@ a:hover {
 	}
 
 	#gameboard > div:hover {
-		background-color: #acd0de;
+		background-color: rgba(255, 255, 255, 0.3);
 		cursor: pointer;
 	}
 

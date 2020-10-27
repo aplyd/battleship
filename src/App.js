@@ -468,7 +468,7 @@ export class App extends Component {
 
 	render() {
 		return (
-			<React.Fragment>
+			<div className='page-container'>
 				{this.state.gameOver ? (
 					<EndGameModal
 						winner={this.state.winner}
@@ -521,14 +521,34 @@ export class App extends Component {
 					/>
 				</div>
 
-				{this.state.allShipsPlaced ? (
-					<Controls
-						usersTurn={this.state.usersTurn}
-						flipBoard={this.flipBoard}
-						newGame={this.newGame}
-					/>
-				) : null}
-			</React.Fragment>
+				{/* {this.state.allShipsPlaced ? ( */}
+				<Controls
+					usersTurn={this.state.usersTurn}
+					flipBoard={this.flipBoard}
+					newGame={this.newGame}
+				/>
+				{/* ) : null} */}
+
+				<div className='footer'>
+					<p>
+						made by austin ftacnik //{' '}
+						<a
+							href='https://github.com/aplyd/battleship'
+							target='_blank'
+							rel='noopener noreferrer'
+						>
+							github
+						</a>{' '}
+						<a
+							href='https://twitter.com/austinftacnik'
+							target='_blank'
+							rel='noopener noreferrer'
+						>
+							twitter
+						</a>
+					</p>
+				</div>
+			</div>
 		);
 	}
 }

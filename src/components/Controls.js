@@ -12,26 +12,7 @@ export class Controls extends Component {
 					{this.props.usersTurn ? 'view ships' : 'view opponent'}
 				</button>
 
-				<div className='about-control-info'>
-					<p>
-						made by austin ftacnik //{' '}
-						<a
-							href='https://github.com/aplyd/battleship'
-							target='_blank'
-							rel='noopener noreferrer'
-						>
-							github
-						</a>{' '}
-						<a
-							href='https://twitter.com/austinftacnik'
-							target='_blank'
-							rel='noopener noreferrer'
-						>
-							twitter
-						</a>
-					</p>
-				</div>
-
+				<div></div>
 				<button
 					className='new-game-btn'
 					type='button'

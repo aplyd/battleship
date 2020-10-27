@@ -155,23 +155,6 @@ export class StartGameModal extends Component {
 
 						<button type='submit'>play</button>
 					</form>
-					<p className='about-info'>
-						made by austin ftacnik{' '}
-						<a
-							href='https://github.com/aplyd/battleship'
-							target='_blank'
-							rel='noopener noreferrer'
-						>
-							github
-						</a>{' '}
-						<a
-							href='https://twitter.com/austinftacnik'
-							target='_blank'
-							rel='noopener noreferrer'
-						>
-							twitter
-						</a>
-					</p>
 				</div>
 			</div>
 		);

@@ -9,16 +9,18 @@ body,
 	padding: 0;
 	overflow-x: hidden;
 	font-family: 'Roboto', sans-serif;
-	background-image: linear-gradient(120deg, #295365 0%, #d1edfa 100%);
+	background-image: linear-gradient(120deg, #1e3e4b 0%, #d1edfa 100%);
 	background-color: no-repeat;
 }
 
 html {
 	height: 100%;
+	overscroll-behavior: none;
 }
 
 body {
 	min-height: 100%;
+	width: 100%;
 }
 
 body,
@@ -82,8 +84,8 @@ a:hover {
 /* GAMEBOARD */
 
 #gameboard-container {
-	width: calc(100vw - 16px);
-	height: calc(100vw - 16px);
+	width: 100vw;
+	height: 100vw;
 	max-width: 800px;
 	max-height: 800px;
 	margin: 0 auto;
@@ -197,18 +199,24 @@ a:hover {
 	align-items: center;
 }
 
+.ship-select-modal > h2 {
+	padding-top: 24px;
+}
+
 .ship-selection-container {
+	width: 100vw;
+	height: 100vw;
+	max-width: 100%;
+	max-height: 100%;
 	display: grid;
 	grid-template-columns: 16% 4% 16% 4% 16% 4% 16% 4% 16%;
 	grid-template-rows: 10% 16% 4% 16% 4% 16% 4% 16% 10%;
-	width: 100%;
-	height: 100%;
 	margin: 0 auto;
 	justify-self: center;
 }
 
 .ship {
-	background: grey;
+	background: rgb(101, 101, 101);
 }
 
 .ship-v4 {
@@ -249,7 +257,7 @@ a:hover {
 /* TURN KEEPER */
 
 .turn-keeper {
-	width: calc(100vw - 16px);
+	width: 100vw;
 	max-width: 800px;
 	height: 60px;
 	margin: 0 auto;
@@ -270,12 +278,12 @@ a:hover {
 /* CONTROLS */
 
 .controls-container {
-	width: calc(100vw - 16px);
+	width: 100vw;
 	max-width: 800px;
 	margin: 0 auto;
 	min-height: 60px;
 	padding-top: 8px;
-	padding-bottom: 64px;
+	padding-bottom: 128px;
 	display: flex;
 	justify-content: space-between;
 }
@@ -352,6 +360,14 @@ a:hover {
 
 .footer a {
 	color: white;
+}
+
+@media screen and (max-width: 816px) {
+	.controls-container,
+	#gameboard-container,
+	.turn-keeper {
+		max-width: calc(100vw - 16px);
+	}
 }
 
 @media (hover: hover) {

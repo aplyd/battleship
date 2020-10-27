@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 
 export class ShipModal extends Component {
 	componentDidMount = () => {
-		if (this.props.isShipModalOpen) {
-			document.body.style.overflow = 'hidden';
+		if (this.props.isModalOpen) {
+			document.body.style.position = 'fixed';
 		}
 	};
 
 	componentWillUnmount = () => {
-		document.body.style.overflow = 'unset';
+		document.body.style.position = 'static';
 	};
 
 	handleClick = (event) => {
@@ -21,7 +21,7 @@ export class ShipModal extends Component {
 		return (
 			<div className='modal-background'>
 				<div className='modal ship-select-modal'>
-					<h2>select a ship to place on the map</h2>
+					<h2>select a ship to place on the board</h2>
 
 					<div className='ship-selection-container'>
 						<div

@@ -12,12 +12,12 @@ export class StartGameModal extends Component {
 
 	componentDidMount = () => {
 		if (this.props.isModalOpen) {
-			document.body.style.overflow = 'hidden';
+			document.body.style.position = 'fixed';
 		}
 	};
 
 	componentWillUnmount = () => {
-		document.body.style.overflow = 'unset';
+		document.body.style.position = 'static';
 	};
 
 	handleChange = (event) => {
